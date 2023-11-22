@@ -1,13 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import Word from './Word';
 
 class Game extends Component {
 
     render() {
-        console.log('game');
         return <>
             <div className="container">
                 <div className="text-center pt-5">
                     <h2>The Hangman Game</h2>
+                    <Word />
                 </div>
             </div>
         </>
