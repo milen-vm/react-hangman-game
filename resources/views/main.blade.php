@@ -19,8 +19,7 @@
             }
         </style>
     </head>
-    <body class="">
-        
+    <body class="">        
         <div id="root"></div>
         @yield('content')
     </body>
