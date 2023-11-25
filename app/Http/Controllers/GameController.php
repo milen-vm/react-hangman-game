@@ -26,9 +26,8 @@ class GameController extends Controller
         $word = Word::inRandomOrder()->first();
         $chars = [];
 
-        if($word) {
-            $name = mb_strtolower($word->name);
-            $chars = mb_str_split($name);
+        if($word) { 
+            $chars = mb_str_split($word->name);
         }
 
         return response()->json([

@@ -1,4 +1,4 @@
-Task 2 - Hangman game
+Hangman game
 =====================
 **Final product:**
 
@@ -8,7 +8,7 @@ The game ends when the user guesses the word or run out of letter choices.
 Implement a backend API.
 Implement an appropriate front-end that communicates with the backend API via ajax http requests. 
 
-Please implement front-end and back-end validation where needed.
+Implement front-end and back-end validation where needed.
 
 For further guidance, please check the wire-frames attached under docs/hangman dir.  
 

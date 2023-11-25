@@ -6,30 +6,32 @@ class Word extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            userLeters: ['p', 'j'],
-            chars: [],
-            win: false,
-            end: false
-        }
+        // this.state = {
+        //     userLeters: [],
+        //     chars: [],
+        //     win: false,
+        //     end: false
+        // }
     }
 
-    componentDidMount() {
-        fetch('/game/word')
-            .then((res) => res.json())
-            .then((data) => {
-                this.setState({ chars: data.chars });
-            });
-    }
+    // componentDidMount() {
+    //     fetch('/game/word')
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             this.setState({ chars: data.chars });
+    //         });
+    // }
+
+    // componentDidUpdate(prevProps) {
+    //     if(prevProps.newLetter !== this.props.newLetter) {
+
+
+    //     }
+    // }
 
     renderBoxes = () => {
-        let chars = this.state.chars;
-        let userLeters = this.state.userLeters;
-
-        const boxes = chars.map((char, index) => {
-            let ch = userLeters.includes(char) ? char : <>&nbsp;&nbsp;</>;
-
-            return <span key={ index } className="inline-block border border-danger bg-light p-1 letter ch-box">{ ch }</span>   
+        const boxes = this.props.chars.map((char, index) => {
+            return <span key={ index } className="inline-block border border-danger bg-light p-1 letter ch-box">{ char }</span>   
         })
 
         return <div className="mt-4">
@@ -39,7 +41,6 @@ class Word extends Component {
 
     render() {
         return <>
-            Word: { this.state.chars.join('') }
             { this.renderBoxes() }
         </>
     }

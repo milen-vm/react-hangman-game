@@ -4,18 +4,12 @@ class Letter extends Component {
 
     leterRef = createRef();
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            letter: ''
-        };
-    }
-
     addLetter = () => {
         let letter = this.leterRef.current.value;
         this.leterRef.current.focus();
         this.leterRef.current.value = '';
+
+        this.props.setLetter(letter);
     }
 
     render() {
