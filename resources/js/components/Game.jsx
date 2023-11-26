@@ -9,6 +9,7 @@ class Game extends Component {
 
         this.state = {
             letter: '',
+            moves: 10,      // ToDo: set new name
             userLeters: [],
             wordChars: [],
             openChars: []
@@ -29,7 +30,7 @@ class Game extends Component {
             });
     }
 
-    setNewLetter = (lt) => {
+    setNewMove = (lt) => {
         let indexs = [],
             letter = lt.toLowerCase(),
             wordChars = this.state.wordChars;
@@ -42,12 +43,16 @@ class Game extends Component {
 
         this.setState((prevState) => {
             prevState.userLeters.push(lt);
-            let state = { userLeters: prevState.userLeters }
+            let state = { serLeters: prevState.userLeters }
 
             if(indexs.length > 0) {
-                // TODO
-                prevState.openChars[index] = prevState.wordChars[index];
+                indexs.forEach((i) => {
+                    prevState.openChars[i] = prevState.wordChars[i];
+                });
+                
                 state.openChars = prevState.openChars;
+            } else {
+                // TODO: count down wrong moves
             }
             
             return state;
@@ -59,10 +64,12 @@ class Game extends Component {
     render() {
         return <>
             <div className="container">
-                <div className="text-center pt-5">
+                <div className="text-center2 pt-5">
                     <h2>The Hangman Game</h2>
                     <Word chars={ this.state.openChars }/>
-                    <Letter setLetter={ this.setNewLetter } />
+                    <Letter setLetter={ this.setNewMove } />
+                    <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
+                    <p className="mt-4">Remaining moves: <strong>{ this.state.moves }</strong></p>
                 </div>
             </div>
         </>

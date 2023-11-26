@@ -14,7 +14,7 @@ class Letter extends Component {
 
     render() {
         return (
-            <div className="row d-flex justify-content-center mt-4">
+            <div className="row mt-4">
                 <div className="col-auto">
                     <div className="">
                         <input ref={ this.leterRef } type="text" className="form-control" placeholder="Enter letter" />
