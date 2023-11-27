@@ -9,7 +9,8 @@ class Game extends Component {
 
         this.state = {
             letter: '',
-            moves: 10,      // ToDo: set new name
+            moves: 10,
+            win: false,
             userLeters: [],
             wordChars: [],
             openChars: []
@@ -52,6 +53,7 @@ class Game extends Component {
                 
                 state.openChars = prevState.openChars;
             } else {
+                state.moves = --prevState.moves;
                 // TODO: count down wrong moves
             }
             
@@ -67,7 +69,7 @@ class Game extends Component {
                 <div className="text-center2 pt-5">
                     <h2>The Hangman Game</h2>
                     <Word chars={ this.state.openChars }/>
-                    <Letter setLetter={ this.setNewMove } />
+                    <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.moves < 1) } />
                     <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
                     <p className="mt-4">Remaining moves: <strong>{ this.state.moves }</strong></p>
                 </div>
