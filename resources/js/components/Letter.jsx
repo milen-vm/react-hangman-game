@@ -12,17 +12,21 @@ class Letter extends Component {
         };
     }
 
+    componentDidMount() {
+        this.leterRef.current.focus();
+    }
+
     addLetter = () => {
         let letter = this.leterRef.current.value;
         this.leterRef.current.focus();
         this.leterRef.current.value = '';
 
         this.props.setLetter(letter);
+        this.toggleButton();
     }
 
     toggleButton = () => {
         let value =  this.props.gameEnd || (this.leterRef.current.value.replace(/\s/g, '') === '');
-// TODO: disable butotn on empty input field or end of the game
         this.setState({ btnDisabled: value });
     }
 

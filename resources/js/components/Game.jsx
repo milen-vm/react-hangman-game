@@ -8,8 +8,7 @@ class Game extends Component {
         super(props);
 
         this.state = {
-            letter: '',
-            moves: 10,
+            miss: 10,
             win: false,
             userLeters: [],
             wordChars: [],
@@ -18,6 +17,10 @@ class Game extends Component {
     }
 
     componentDidMount() {
+        this.loadWord();
+    }
+
+    loadWord = () => {
         fetch('/game/word')
             .then((res) => res.json())
             .then((data) => {
@@ -44,7 +47,7 @@ class Game extends Component {
 
         this.setState((prevState) => {
             prevState.userLeters.push(lt);
-            let state = { serLeters: prevState.userLeters }
+            let state = { userLeters: prevState.userLeters }
 
             if(indexs.length > 0) {
                 indexs.forEach((i) => {
@@ -52,15 +55,42 @@ class Game extends Component {
                 });
                 
                 state.openChars = prevState.openChars;
+                let isWin = wordChars.every(
+                    (val, index) => val === state.openChars[index]
+                );
+
+                if(isWin) {
+                    state.win = true;
+                }
             } else {
-                state.moves = --prevState.moves;
-                // TODO: count down wrong moves
+                state.miss = --prevState.miss;
             }
             
             return state;
         });
+    }
+    // TODO save game result in history
+    newGame = () => {
+        this.setState({
+            miss: 10,
+            win: false,
+            userLeters: []
+        });
 
+        this.loadWord();
+    }
 
+    gameStatus = () => {
+        let button = <button className="btn btn-success" onClick={ this.newGame }>Try new one!</button>;
+        if(this.state.miss < 1) {
+            return <p className="mt-4">You failed to guess the word. { button }</p>;
+        }
+
+        if(this.state.win) {
+            return <p className="mt-4">Congratulations! You guessed the word! { button }</p>
+        }
+
+        return <p className="mt-4">Suggest a new letter!</p>
     }
 
     render() {
@@ -69,9 +99,10 @@ class Game extends Component {
                 <div className="text-center2 pt-5">
                     <h2>The Hangman Game</h2>
                     <Word chars={ this.state.openChars }/>
-                    <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.moves < 1) } />
+                    <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
                     <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
-                    <p className="mt-4">Remaining moves: <strong>{ this.state.moves }</strong></p>
+                    <p className="mt-4">Remaining omissions: <strong>{ this.state.miss }</strong></p>
+                    { this.gameStatus() }
                 </div>
             </div>
         </>
