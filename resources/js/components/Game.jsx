@@ -20,6 +20,12 @@ class Game extends Component {
         this.loadWord();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if(this.state.win || (this.state.miss < 1)) {
+            // TODO save game history in local storage
+        }
+    }
+
     loadWord = () => {
         fetch('/game/word')
             .then((res) => res.json())
@@ -69,7 +75,7 @@ class Game extends Component {
             return state;
         });
     }
-    // TODO save game result in history
+
     newGame = () => {
         this.setState({
             miss: 10,
