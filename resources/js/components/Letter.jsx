@@ -28,6 +28,10 @@ class Letter extends Component {
     toggleButton = () => {
         let value =  this.props.gameEnd || (this.leterRef.current.value.replace(/\s/g, '') === '');
         this.setState({ btnDisabled: value });
+
+        if(this.props.gameEnd && this.leterRef.current.value.length) {
+            this.leterRef.current.value = '';
+        }
     }
 
     render() {
