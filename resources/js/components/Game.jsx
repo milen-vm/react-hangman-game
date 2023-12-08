@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Word from './Word';
 import Letter from './Letter'
+import Storage from '../utils/Storage';
 
 class Game extends Component {
 
@@ -19,10 +20,18 @@ class Game extends Component {
     componentDidMount() {
         this.loadWord();
     }
-
+    // Save game history in local storage
     componentDidUpdate(prevProps, prevState) {
         if(this.state.win || (this.state.miss < 1)) {
-            // TODO save game history in local storage
+            let date = new Date(),
+                    dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
+
+            Storage.addData('games', {
+                wordChars: this.state.wordChars,
+                userLeters: this.state.userLeters,
+                win: this.state.win,
+                dateTime
+            });
         }
     }
 
