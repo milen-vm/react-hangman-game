@@ -18,5 +18,5 @@ Route::get('/', function () {
 });
 
 Route::get('/game', 'App\Http\Controllers\GameController@index');
-Route::post('/game/{wordId}', 'App\Http\Controllers\GameController@submitLetter');
 Route::get('/game/word', 'App\Http\Controllers\GameController@getWord');
+Route::get('/game/history','App\Http\Controllers\GameController@index');

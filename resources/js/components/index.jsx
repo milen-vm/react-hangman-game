@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import Game from './Game';
+import Router from './Router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<Game />);
+root.render(<Router />);
