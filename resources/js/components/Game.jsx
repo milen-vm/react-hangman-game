@@ -25,7 +25,7 @@ class Game extends Component {
         if(this.state.win || (this.state.miss < 1)) {
             let date = new Date(),
                     dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-
+// TODO refactor to save in sotorage some new class with game result and static properties of fields/colums title and dataidex
             Storage.addData('games', {
                 wordChars: this.state.wordChars,
                 userLeters: this.state.userLeters,
@@ -110,16 +110,12 @@ class Game extends Component {
 
     render() {
         return <>
-            <div className="container">
-                <div className="text-center2 pt-5">
-                    <h2>The Hangman Game</h2>
-                    <Word chars={ this.state.openChars }/>
-                    <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
-                    <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
-                    <p className="mt-4">Remaining omissions: <strong>{ this.state.miss }</strong></p>
-                    { this.gameStatus() }
-                </div>
-            </div>
+                <h2>The Hangman Game</h2>
+                <Word chars={ this.state.openChars }/>
+                <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
+                <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
+                <p className="mt-4">Remaining omissions: <strong>{ this.state.miss }</strong></p>
+                { this.gameStatus() }
         </>
     }
 }

@@ -8,7 +8,9 @@ class Main extends Component {
         return <>
             <Navbar />
             <div className="container">
-                <Outlet />
+                <div className="pt-5">
+                    <Outlet />
+                </div>
             </div>
         </>;
     }
