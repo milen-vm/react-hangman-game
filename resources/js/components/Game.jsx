@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Word from './Word';
 import Letter from './Letter'
 import Storage from '../utils/Storage';
+import Record from '../utils/Record';
 
 class Game extends Component {
 
@@ -26,12 +27,14 @@ class Game extends Component {
             let date = new Date(),
                     dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 // TODO refactor to save in sotorage some new class with game result and static properties of fields/colums title and dataidex
-            Storage.addData('games', {
-                wordChars: this.state.wordChars,
-                userLeters: this.state.userLeters,
-                win: this.state.win,
+            let record = new Record(
+                this.state.wordChars,
+                this.state.userLeters,
+                this.state.win,
                 dateTime
-            });
+            );
+            console.log(record);
+            Storage.addData('games', record.getData());
         }
     }
 

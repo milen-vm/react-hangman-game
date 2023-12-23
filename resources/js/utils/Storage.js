@@ -7,7 +7,7 @@ class Storage {
     static addData(key, data) {
         let items = JSON.parse(localStorage.getItem(key));
         if (items === null) {
-            localStorage.setItem(key, JSON.stringify(data));
+            localStorage.setItem(key, JSON.stringify([data]));
         } else if (Array.isArray(items)) {
             items.push(data);
             localStorage.setItem(key, JSON.stringify(items));
