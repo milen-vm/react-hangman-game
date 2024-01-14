@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Word from './Word';
 import Letter from './Letter'
 import Storage from '../utils/Storage';
-import Record from '../utils/Record';
 
 class Game extends Component {
 
@@ -26,15 +25,15 @@ class Game extends Component {
         if(this.state.win || (this.state.miss < 1)) {
             let date = new Date(),
                     dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
-// TODO refactor to save in sotorage some new class with game result and static properties of fields/colums title and dataidex
-            let record = new Record(
-                this.state.wordChars,
-                this.state.userLeters,
-                this.state.win,
+
+            let record = {
+                wordChars: this.state.wordChars.join(''),
+                userLetters: this.state.userLeters.join(', '),
+                win: this.state.win,
                 dateTime
-            );
-            console.log(record);
-            Storage.addData('games', record.getData());
+            };
+
+            Storage.addData('games', record);
         }
     }
 

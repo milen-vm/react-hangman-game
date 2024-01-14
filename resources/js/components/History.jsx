@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from 'antd';
 
 import Storage from '../utils/Storage';
@@ -35,17 +36,30 @@ class History extends Component {
 
     constructor(props) {
         super(props);
-        let data = Storage.getData('games');
-        console.log(data);
-// TODO get saved games from storage in type some class with game result and static prop of fields/colums title and dataidex
+
         this.state = {
             data: []
         };
     }
 
-    // componentWillMount() {
+    componentDidMount() {
+        let data = Storage.getData('games');
+        data.forEach((element, index) => {
+            element.action = <Link title='Show game' to={'/game/review/' + index }>Review</Link>;
+            element.key = index;
 
-    // }
+            let win = '';
+            if (element.win) {
+                win = <span className='text-success'>Yes</span>;
+            } else {
+                win = <span className='text-danger'>No</span>;
+            }
+
+            element.win = win;
+        });
+
+        this.setState({ data: data });
+    }
 
     render() {
         return <>

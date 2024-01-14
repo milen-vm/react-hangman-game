@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get('/game', 'App\Http\Controllers\GameController@index');
 Route::get('/game/word', 'App\Http\Controllers\GameController@getWord');
 Route::get('/game/history','App\Http\Controllers\GameController@index');
+Route::get('/game/review/{id}','App\Http\Controllers\GameController@index');
