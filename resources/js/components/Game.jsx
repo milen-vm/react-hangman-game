@@ -27,8 +27,8 @@ class Game extends Component {
                     dateTime = date.toLocaleDateString() + ' ' + date.toLocaleTimeString();
 
             let record = {
-                wordChars: this.state.wordChars.join(''),
-                userLetters: this.state.userLeters.join(', '),
+                wordChars: this.state.wordChars,
+                userLetters: this.state.userLeters,
                 win: this.state.win,
                 dateTime
             };

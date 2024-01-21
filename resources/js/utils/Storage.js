@@ -19,6 +19,10 @@ class Storage {
     static getData(key) {
         return JSON.parse(localStorage.getItem(key));
     }
+
+    static removeData(key) {
+        localStorage.removeItem(key);
+    }
 }
 
 export default Storage;

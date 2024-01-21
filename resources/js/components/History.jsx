@@ -40,13 +40,18 @@ class History extends Component {
         this.state = {
             data: []
         };
+
+        this.clear = this.clear.bind(this);
     }
 
     componentDidMount() {
-        let data = Storage.getData('games');
+        let data = Storage.getData('games') || [];
+        console.log(data);
         data.forEach((element, index) => {
             element.action = <Link title='Show game' to={'/game/review/' + index }>Review</Link>;
             element.key = index;
+            element.wordChars = element.wordChars.join('');
+            element.userLetters = element.userLetters.join(', ');
 
             let win = '';
             if (element.win) {
@@ -61,9 +66,20 @@ class History extends Component {
         this.setState({ data: data });
     }
 
+    clear() {
+        Storage.removeData('games');
+        this.setState({ data: [] });
+    }
+
     render() {
         return <>
-            <h1>Game History</h1>
+            <h1 className='d-inline-block' >Game History</h1>
+            <Link className='float-end' 
+                  title='Clear history' 
+                  onClick={ this.clear } 
+            >
+                clear history
+            </Link>
             <Table dataSource={ this.state.data } columns={ columns }/>
         </>
     }
