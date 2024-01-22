@@ -11,7 +11,7 @@ class Game extends Component {
         this.state = {
             miss: 10,
             win: false,
-            userLeters: [],
+            userLetters: [],
             wordChars: [],
             openChars: []
         };
@@ -28,7 +28,8 @@ class Game extends Component {
 
             let record = {
                 wordChars: this.state.wordChars,
-                userLetters: this.state.userLeters,
+                userLetters: this.state.userLetters,
+                openChars: this.state.openChars,
                 win: this.state.win,
                 dateTime
             };
@@ -44,7 +45,7 @@ class Game extends Component {
                 this.setState({ wordChars: data.chars });
 
                 let length = data.chars.length,
-                    open = Array(length).fill(<>&nbsp;&nbsp;</>);
+                    open = Array(length).fill('');
 
                 this.setState({ openChars: open });
                 
@@ -63,8 +64,8 @@ class Game extends Component {
         });
 
         this.setState((prevState) => {
-            prevState.userLeters.push(lt);
-            let state = { userLeters: prevState.userLeters }
+            prevState.userLetters.push(lt);
+            let state = { userLetters: prevState.userLetters }
 
             if(indexs.length > 0) {
                 indexs.forEach((i) => {
@@ -91,7 +92,7 @@ class Game extends Component {
         this.setState({
             miss: 10,
             win: false,
-            userLeters: []
+            userLetters: []
         });
 
         this.loadWord();
@@ -115,7 +116,7 @@ class Game extends Component {
                 <h2>The Hangman Game</h2>
                 <Word chars={ this.state.openChars }/>
                 <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
-                <p className="mt-4">Already selected letters: <strong>{ this.state.userLeters.join(', ') }</strong></p>
+                <p className="mt-4">Already selected letters: <strong>{ this.state.userLetters.join(', ') }</strong></p>
                 <p className="mt-4">Remaining omissions: <strong>{ this.state.miss }</strong></p>
                 { this.gameStatus() }
         </>

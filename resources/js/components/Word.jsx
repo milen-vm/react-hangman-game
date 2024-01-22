@@ -5,7 +5,11 @@ class Word extends Component {
 
     renderBoxes = () => {
         const boxes = this.props.chars.map((char, index) => {
-            return <span key={ index } className="inline-block border border-danger bg-light p-1 letter ch-box">{ char }</span>   
+            return <span key={ index } 
+                         className="inline-block border border-danger bg-light p-1 letter ch-box"
+                   >
+                        { char || <>&nbsp;&nbsp;</> }
+                   </span>   
         })
 
         return <div className="mt-4">
