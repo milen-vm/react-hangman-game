@@ -13,7 +13,7 @@ class Imx extends ImxVipr implements SiteInterface
 
     protected function createUrl(string $url): string
     {
-        // todo fix change strings
-        return str_replace('/upload/small/', '/u/i/', $url);
+        return str_replace('/t/', '/i/', $url);
+        // return str_replace('/upload/small/', '/u/i/', $url);
     }
 }

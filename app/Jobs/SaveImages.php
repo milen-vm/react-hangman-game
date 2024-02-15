@@ -20,6 +20,8 @@ class SaveImages implements ShouldQueue
     private $baseName = '';
     private $start = 0;
     private $zeros = 4;
+    private $path = 'images';
+    private $baseFile = '';
 
     /**
      * Create a new job instance.
@@ -30,6 +32,12 @@ class SaveImages implements ShouldQueue
         $this->baseName = $baseName;
         $this->start = $start;
         $this->zeros = $zeros;
+        $this->setBaseFile();
+    }
+
+    private function setBaseFile(): void
+    {
+        $this->baseFile = $this->path . self::DS . $this->baseName . self::DS . $this->baseName . '_';
     }
 
     /**
@@ -56,7 +64,7 @@ class SaveImages implements ShouldQueue
         }
 
         $ext = '.' . pathinfo(parse_url($imgUrl, PHP_URL_PATH), PATHINFO_EXTENSION);
-        $path = $this->baseName . self::DS . $this->baseName . '_' . sprintf("%0{$this->zeros}d", $num);
+        $path = $this->baseFile . sprintf("%0{$this->zeros}d", $num);
 
         if (Storage::disk('local')->exists($path . $ext)) {
             $path = $path . uniqid();

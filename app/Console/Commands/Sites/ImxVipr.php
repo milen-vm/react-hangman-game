@@ -4,13 +4,10 @@ namespace App\Console\Commands\Sites;
 
 use DiDom\Document;
 use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
 abstract class ImxVipr
 {
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    protected $client;
     /**
      * @var string
      */
@@ -23,12 +20,13 @@ abstract class ImxVipr
      * @var array
      */
     protected $urlBlocks = [];
-
+    /**
+     * @var int
+     */
     protected $leadingZeros = 0;
 
     public function __construct(string $galeryUrl, int $blockSize)
     {
-        $this->client = new Client();
         $this->galeryUrl = $galeryUrl;
         $this->blockSize = $blockSize;
 
@@ -36,10 +34,10 @@ abstract class ImxVipr
         $this->setLeadingzeros();
     }
 
-    protected function setUrlBlocks()
+    protected function setUrlBlocks(): void
     {
-        $html = $this->client->request('GET', $this->galeryUrl)->getBody();
-        $dom = new Document($html->getContents());
+        $html = $this->getHtml();
+        $dom = new Document($html);
         $links = $dom->find('a:has(img)');
         $urls = [];
 
@@ -63,7 +61,20 @@ abstract class ImxVipr
         }
     }
 
-    protected function setLeadingzeros()
+    protected function getHtml(): string
+    {
+        if (Storage::disk('local')->exists($this->galeryUrl)) {
+            
+            return Storage::disk('local')->get($this->galeryUrl);
+        }
+
+        $client = new Client();
+        $html = $client->request('GET', $this->galeryUrl)->getBody();
+
+        return $html->getContents();
+    }
+
+    protected function setLeadingzeros(): void
     {
         $fullBlocks = count($this->urlBlocks) - 1;
         $count = $fullBlocks * $this->blockSize + count($this->urlBlocks[$fullBlocks]);
