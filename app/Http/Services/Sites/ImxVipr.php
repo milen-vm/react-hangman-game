@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Sites;
+namespace App\Http\Services\Sites;
 
 use DiDom\Document;
 use GuzzleHttp\Client;

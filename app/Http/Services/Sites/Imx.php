@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands\Sites;
+namespace App\Http\Services\Sites;
 
 class Imx extends ImxVipr implements SiteInterface
 {
