@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\GalleryDownloadRequest;
-use Illuminate\Http\Request;
+use App\Http\Services\Contracts\GalleryServiceInterface;
 
 class GalleryDownloadController extends Controller
 {
@@ -12,10 +12,17 @@ class GalleryDownloadController extends Controller
         return view('gallery.create');
     }
 
-    public function store(GalleryDownloadRequest $request)
+    public function store(GalleryDownloadRequest $request, GalleryServiceInterface $galeryService)
     {
-        $gallery = $request->only('site', 'galleryUrl', 'baseName', 'isHtml', 'html');
-        dd($gallery);
+        $gallery = $request->only('site', 'galleryUrl', 'baseName', 'html');
+
+        $galeryService->download(
+            $gallery['baseName'],
+            $gallery['site'],
+            data_get($gallery, 'galleryUrl'),
+            data_get($gallery, 'html')
+        );
+
         return redirect()->back();
     }
 }

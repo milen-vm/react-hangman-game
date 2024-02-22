@@ -76,9 +76,14 @@ abstract class ImxVipr
 
     protected function setLeadingzeros(): void
     {
-        $fullBlocks = count($this->urlBlocks) - 1;
-        $count = $fullBlocks * $this->blockSize + count($this->urlBlocks[$fullBlocks]);
+        $blocksCount = count($this->urlBlocks);
+        if ($blocksCount === 0) {
+            $this->leadingZeros = 0;
 
+            return;
+        }
+
+        $count = ($blocksCount - 1) * $this->blockSize + count($this->urlBlocks[$blocksCount - 1]);
         $this->leadingZeros = strlen(strval($count));
     }
 
