@@ -15,6 +15,7 @@
             .letter {
             }
         </style>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -42,5 +43,6 @@
             </div>
           </nav>
         @yield('content')
+        @yield('scripts')
     </body>
 </html>
