@@ -7,6 +7,11 @@ use App\Http\Services\Contracts\GalleryServiceInterface;
 
 class GalleryDownloadController extends Controller
 {
+    public function index()
+    {
+        return view('gallery.index');
+    }
+
     public function create()
     {
         return view('gallery.create');
@@ -17,7 +22,7 @@ class GalleryDownloadController extends Controller
         $gallery = $request->only('site', 'galleryUrl', 'baseName', 'html');
 
         $galeryService->download(
-            $gallery['baseName'],
+            str_ireplace(' ', '-', trim($gallery['baseName'])),
             $gallery['site'],
             data_get($gallery, 'galleryUrl'),
             data_get($gallery, 'html')

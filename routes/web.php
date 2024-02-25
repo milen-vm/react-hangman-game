@@ -28,3 +28,4 @@ Route::get('/game/review/{id}','App\Http\Controllers\GameController@index');
  */
 Route::get('/gallery/create', 'App\Http\Controllers\GalleryDownloadController@create')->name('gallery.create');
 Route::post('/gallery/create', 'App\Http\Controllers\GalleryDownloadController@store')->name('gallery.store');
+Route::get('/gallery', 'App\Http\Controllers\GalleryDownloadController@index')->name('gallery.index');
