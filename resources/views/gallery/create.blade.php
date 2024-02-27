@@ -5,11 +5,11 @@
     <div class="row">
         <div class="col-4 mx-auto">
             <h1 class="mt-5 text-center">Create Gallery</h1>
-            <form class="mt-3" method="POST" action="{{ route('gallery.store') }}">
+            <form class="mt-3" method="POST" action="{{ route('gallery.store') }}" autocomplete="off">
                 @csrf()
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Gallery name</label>
-                    <input type="text" name="baseName" value="{{ old('baseName') }}" class="form-control" id="">
+                    <label for="baseName" class="form-label">Gallery name</label>
+                    <input type="text" name="baseName" value="{{ old('baseName') }}" class="form-control" id="baseName">
                     @error('baseName')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>
                     @enderror
