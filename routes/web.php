@@ -26,6 +26,7 @@ Route::get('/game/review/{id}','App\Http\Controllers\GameController@index');
 /**
  * Galleries
  */
-Route::get('/gallery/create', 'App\Http\Controllers\GalleryDownloadController@create')->name('gallery.create');
-Route::post('/gallery/create', 'App\Http\Controllers\GalleryDownloadController@store')->name('gallery.store');
-Route::get('/gallery', 'App\Http\Controllers\GalleryDownloadController@index')->name('gallery.index');
+Route::get('/gallery', 'App\Http\Controllers\GalleryController@index')->name('gallery.index');
+Route::get('/gallery/list', 'App\Http\Controllers\GalleryController@list')->name('gallery.list');
+Route::get('/gallery/create', 'App\Http\Controllers\GalleryController@create')->name('gallery.create');
+Route::post('/gallery/create', 'App\Http\Controllers\GalleryController@store')->name('gallery.store');

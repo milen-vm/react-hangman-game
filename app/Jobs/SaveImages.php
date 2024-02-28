@@ -20,24 +20,23 @@ class SaveImages implements ShouldQueue
     private $baseName = '';
     private $start = 0;
     private $zeros = 4;
-    private $path = 'images';
     private $baseFile = '';
 
     /**
      * Create a new job instance.
      */
-    public function __construct(array $urls, string $baseName, int $start, int $zeros)
+    public function __construct(array $urls, string $baseName, int $start, int $zeros, string $galliesPath)
     {
         $this->urls = $urls;
         $this->baseName = $baseName;
         $this->start = $start;
         $this->zeros = $zeros;
-        $this->setBaseFile();
+        $this->setBaseFile($galliesPath);
     }
 
-    private function setBaseFile(): void
+    private function setBaseFile(string $galleiesPath): void
     {
-        $this->baseFile = $this->path . self::DS . $this->baseName . self::DS . $this->baseName . '_';
+        $this->baseFile = $galleiesPath . self::DS . $this->baseName . self::DS . $this->baseName . '_';
     }
 
     /**
