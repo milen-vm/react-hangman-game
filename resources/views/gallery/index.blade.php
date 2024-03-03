@@ -6,11 +6,11 @@
 
     <div class="table-responsive">
         <table class="table table-hover data-table">
-            <thead>
+            <thead class="gall">
                 <tr>
                     <th>No</th>
                     <th>Name</th>
-                    <th>Dir</th>
+                    <th>Path</th>
                     <th>Count</th>
                     <th>Size</th>
                     <th>Modified At</th>
@@ -33,12 +33,24 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                 {data: 'name', name: 'name'},
-                {data: 'dir', name: 'dir'},
+                {data: 'rel_path', name: 'rel_path'},
                 {data: 'count', name: 'count'},
                 {data: 'size', name: 'size'},
-                {data: 'modified_at', name: 'modified_at'}
+                {data: 'created_at', name: 'created_at'}
+            ],
+            columnDefs: [
+                {targets: 0, searchable: false, orderable: false},
+                {
+                    targets: -1,
+                    data: 'modifiedAt',
+                    render: {
+                        _: 'timestamp',
+                        filter: 'display',
+                        display: 'display'
+                    }
+                }
             ]
         });
-    });     // 5
+    });
 </script>
 @endsection

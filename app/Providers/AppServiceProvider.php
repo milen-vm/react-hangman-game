@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Http\Services\Contracts\GalleryServiceInterface;
 use App\Http\Services\GalleryService;
+use App\Models\Gallery;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->bind(GalleryServiceInterface::class, function () {
-            return  new GalleryService();
+            return  new GalleryService(new Gallery());
         });
     }
 

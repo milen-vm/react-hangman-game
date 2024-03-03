@@ -3,9 +3,11 @@
 namespace App\Http\Services;
 
 use App\Http\Services\Contracts\GalleryServiceInterface;
+use App\Http\Services\Models\Gallery;
 use App\Http\Services\Sites\SiteInterface;
 use App\Jobs\SaveImages;
-use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use File;
 
@@ -17,6 +19,10 @@ class GalleryService implements GalleryServiceInterface
     private const HTML_FILE = 'images/gallery.html';
     private const GALLERIES_PATH = 'images';
     private const DS = DIRECTORY_SEPARATOR;
+
+    public function __construct(private \App\Models\Gallery $gallery)
+    {
+    }
 
     public function download(string $galleryName, string $siteName, ?string $galleryUrl = self::HTML_FILE, ?string $html = null): void
     {
@@ -52,24 +58,40 @@ class GalleryService implements GalleryServiceInterface
         return new $className($galleryUrl, self::BLOCK_SIZE);
     }
 
-    public function getGalleriesList(): array
+    public function getGalleriesList(): Collection
     {
         $list = Storage::disk('local')->directories(self::GALLERIES_PATH);
         $galleries = [];
 
         foreach($list as $item) {
-            [$size, $count, $modifiedAt] = $this->getGalleryData(Storage::path($item));
+            $absPath = Storage::path($item);
+            [$size, $count, $modifiedAt] = $this->getGalleryData($absPath);
 
-            $galleries[] = [
-                'dir' => $item,
-                'name' => basename($item),
-                'count' => $count,
-                'size' => $size,
-                'modified_at' => $modifiedAt,
-            ];
+            $galleries[] = new Gallery(
+                str_replace('-', ' ', basename($item)),
+                $item,
+                $absPath,
+                $count,
+                $size,
+                $modifiedAt
+            );
+
+            // $this->gallery::create([
+            //     'name' => str_replace('-', ' ', basename($item)),
+            //     'rel_path' => $item,
+            //     'abs_path' => $absPath,
+            //     'count' => $count,
+            //     'size' => $size,
+            //     'created_at' => $modifiedAt,
+            // ]);
         }
-        // dd(Storage::path($item));
-        return $galleries;
+
+        return collect($galleries);
+    }
+
+    public function getGalleriesQuery(): Builder
+    {
+        return $this->gallery::query();
     }
 
     private function getGalleryData(string $path): array
@@ -86,7 +108,8 @@ class GalleryService implements GalleryServiceInterface
         // )->format('d M Y');
 
         return [
-            round($size / 1048576, 2),
+            // round($size / 1048576, 2),
+            $size,
             count($files),
             filemtime($path . self::DS . '.'),
         ];
