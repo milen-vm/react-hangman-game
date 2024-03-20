@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use File;
+use Symfony\Component\Finder\SplFileInfo;
 
 class GalleryService implements GalleryServiceInterface
 {
@@ -113,5 +114,25 @@ class GalleryService implements GalleryServiceInterface
             count($files),
             filemtime($path . self::DS . '.'),
         ];
+    }
+
+    public function getFileInfo(\App\Models\Gallery $gallery, int $index): SplFileInfo
+    {
+        $filesInfo = File::files($gallery->abs_path);
+        if (!isset($filesInfo[$index])) {
+            throw new \Exception('Invalid file index');
+        }
+
+        return $filesInfo[$index];
+    }
+
+    public function getFile(SplFileInfo $fileInfo): string
+    {
+        $file = File::get($fileInfo->getRealPath());
+        if ($fileInfo->getType() !== 'file') {
+            throw new \Exception('Invalid file');
+        }
+
+        return $file;
     }
 }

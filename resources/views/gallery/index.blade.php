@@ -31,11 +31,11 @@
             // responsive: true,
             ajax: "{{ route('gallery.list') }}",
             columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false},
                 {data: 'name', name: 'name'},
                 {data: 'rel_path', name: 'rel_path'},
                 {data: 'count', name: 'count'},
-                {data: 'size', name: 'size'},
+                {data: 'size', name: 'size', searchable: false},
                 {data: 'created_at', name: 'created_at'}
             ],
             columnDefs: [

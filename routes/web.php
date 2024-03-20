@@ -30,3 +30,5 @@ Route::get('/gallery', 'App\Http\Controllers\GalleryController@index')->name('ga
 Route::get('/gallery/list', 'App\Http\Controllers\GalleryController@list')->name('gallery.list');
 Route::get('/gallery/create', 'App\Http\Controllers\GalleryController@create')->name('gallery.create');
 Route::post('/gallery/create', 'App\Http\Controllers\GalleryController@store')->name('gallery.store');
+Route::get('/gallery/{gallery}/show/{index?}', 'App\Http\Controllers\GalleryController@show')->name('gallery.show');
+Route::get('/gallery/{gallery}/image/{index}', 'App\Http\Controllers\GalleryController@showImage')->name('gallery.show.image');
