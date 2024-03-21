@@ -76,7 +76,7 @@ class GalleryController extends Controller
     public function show(Gallery $gallery, int $index = 0)
     {
         return view('gallery.image', [
-            'galleryId' => $gallery,
+            'gallery' => $gallery,
             'index'=> $index,
         ]);
     }

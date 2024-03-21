@@ -25,20 +25,28 @@
                 border-color: #ccc;
             }
 
-            .btn-primary-outline:hover {
-                border-color: black;    
-            }
-
             .btn-primary-outline i {
                 color: #ccc;
             }
 
+            .btn-primary-outline:hover {
+                border-color: black;
+            }
+
+            .btn-primary-outline:hover i {
+                color: black;
+            }
+
             .right-btn {
-                right: -15px;
+                right: 5px;
             }
 
             .left-btn {
-                left: 25px !important;
+                left: 5px;
+            }
+
+            .top-95 {
+                top: 95%;
             }
         </style>
     </head>
@@ -69,10 +77,13 @@
         <script>
             $(document).ready(function () {
                 let locHref = $(location).attr('href'),
-                    target = `a[href$='${locHref}']`;
+                    target = `a[href$='${locHref}']`,
+                    navLink = $('.nav-link');
 
-                $('.nav-link').removeClass('active');
-                $(target).addClass('active');
+                navLink.removeClass('active');
+                let menuLink = navLink.closest(target);
+                
+                menuLink.addClass('active');
             });
         </script>
     </body>

@@ -122,7 +122,7 @@ class GalleryService implements GalleryServiceInterface
         if (!isset($filesInfo[$index])) {
             throw new \Exception('Invalid file index');
         }
-
+// TODO add fileInfo in laravel cash
         return $filesInfo[$index];
     }
 
