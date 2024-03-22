@@ -8,6 +8,7 @@ use App\Http\Services\Sites\SiteInterface;
 use App\Jobs\SaveImages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use File;
 use Symfony\Component\Finder\SplFileInfo;
@@ -116,20 +117,36 @@ class GalleryService implements GalleryServiceInterface
         ];
     }
 
-    public function getFileInfo(\App\Models\Gallery $gallery, int $index): SplFileInfo
+    public function getFileData(\App\Models\Gallery $gallery, int $index): array
     {
-        $filesInfo = File::files($gallery->abs_path);
-        if (!isset($filesInfo[$index])) {
+        $filesData = Cache::rememberForever($gallery->rel_path, function () use ($gallery) {
+            $filesInfo = File::files($gallery->abs_path);
+            $filesData = [];
+            foreach($filesInfo as $file) {
+                if ($file->getType() !== 'file') {
+                    continue;
+                }
+
+                $filesData[] = [
+                    'ext' => $file->getExtension(),
+                    'path' => $file->getRealPath(),
+                ];
+            }
+
+            return $filesData;
+        });
+
+        if (!isset($filesData[$index])) {
             throw new \Exception('Invalid file index');
         }
-// TODO add fileInfo in laravel cash
-        return $filesInfo[$index];
+
+        return $filesData[$index];
     }
 
-    public function getFile(SplFileInfo $fileInfo): string
+    public function getFile(string $path): string
     {
-        $file = File::get($fileInfo->getRealPath());
-        if ($fileInfo->getType() !== 'file') {
+        $file = File::get($path);
+        if (!$file) {
             throw new \Exception('Invalid file');
         }
 

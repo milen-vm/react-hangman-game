@@ -84,15 +84,15 @@ class GalleryController extends Controller
     public function showImage(Gallery $gallery, int $index)
     {
         try {
-            $fileInfo = $this->galleryService->getFileInfo($gallery, $index);
+            $fileData = $this->galleryService->getFileData($gallery, $index);
         } catch(\Exception $e) {
             abort(404);
         }
 
-        $file = $this->galleryService->getFile($fileInfo);
+        $file = $this->galleryService->getFile($fileData['path']);
 
         $response = Response::make($file, 200);
-        $response->header('Content-Type', $fileInfo->getExtension());
+        $response->header('Content-Type', $fileData['ext']);
 
         return $response;
     }

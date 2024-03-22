@@ -13,6 +13,6 @@ interface GalleryServiceInterface
     public function download(string $galleryName, string $siteName, string $galleryUrl, ?string $html = null): void;
     public function getGalleriesList(): Collection;
     public function getGalleriesQuery(): Builder;
-    public function getFileInfo(Gallery $gallery, int $index): SplFileInfo;
-    public function getFile(SplFileInfo $fileInfo): string;
+    public function getFileData(Gallery $gallery, int $index): array;
+    public function getFile(string $path): string;
 }

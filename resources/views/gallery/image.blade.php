@@ -20,7 +20,7 @@
         </div>
     @endif
 
-    <div class="position-fixed top-95 left-btn">
+    <div class="position-fixed top-95 right-btn">
         <a href="{{ route('gallery.show', ['gallery' => $gallery->id, 'index' => 0]) }}" class="btn btn-primary-outline">
             <i>{{ $gallery->name . ' - ' . ($index + 1) . '/' . $gallery->count }}</i>
         </a>
