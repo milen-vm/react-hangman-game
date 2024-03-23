@@ -60,15 +60,16 @@ class GalleryController extends Controller
     public function store(GalleryDownloadRequest $request)
     {
         $gallery = $request->only('site', 'galleryUrl', 'baseName', 'html');
+        $name = trim($gallery['baseName']);
 
         $this->galleryService->download(
-            str_ireplace(' ', '-', trim($gallery['baseName'])),
+            str_ireplace(' ', '-', $name),
             $gallery['site'],
             data_get($gallery, 'galleryUrl'),
             data_get($gallery, 'html')
         );
 
-        // TODO store record in db
+        $this->galleryService->store($name);
 
         return redirect()->back();
     }

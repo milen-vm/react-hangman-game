@@ -6,6 +6,7 @@ use App\Http\Services\Contracts\GalleryServiceInterface;
 use App\Http\Services\Models\Gallery;
 use App\Http\Services\Sites\SiteInterface;
 use App\Jobs\SaveImages;
+use App\Jobs\StoreGallery;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -60,6 +61,14 @@ class GalleryService implements GalleryServiceInterface
         return new $className($galleryUrl, self::BLOCK_SIZE);
     }
 
+    public function store($name): void
+    {
+        $relPath = self::GALLERIES_PATH . self::DS . str_ireplace(' ', '-', $name);
+        $absPath = Storage::path($relPath);
+
+        StoreGallery::dispatch($name, $relPath, $absPath);
+    }
+
     public function getGalleriesList(): Collection
     {
         $list = Storage::disk('local')->directories(self::GALLERIES_PATH);
@@ -77,15 +86,6 @@ class GalleryService implements GalleryServiceInterface
                 $size,
                 $modifiedAt
             );
-
-            // $this->gallery::create([
-            //     'name' => str_replace('-', ' ', basename($item)),
-            //     'rel_path' => $item,
-            //     'abs_path' => $absPath,
-            //     'count' => $count,
-            //     'size' => $size,
-            //     'created_at' => $modifiedAt,
-            // ]);
         }
 
         return collect($galleries);
