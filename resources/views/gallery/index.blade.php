@@ -28,6 +28,7 @@
         let table = $('.data-table').DataTable({
             processing: true,
             serverSide: true,
+            {{-- displayStart: 0, --}}
             // responsive: true,
             ajax: "{{ route('gallery.list') }}",
             columns: [
@@ -51,6 +52,7 @@
                 }
             ]
         });
+
     });
 </script>
 @endsection

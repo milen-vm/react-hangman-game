@@ -22,4 +22,11 @@ Views / Sections
 
 * Game view - contains game front-end representation where the player/user inputs the letters one by one
 * Games history list - a table (with clickable rows loading the "Game history details") with the following columns: Word to guess, Selected letters, Win (yes / no possible values), datetime (format: YYYY-MM-DD HH:MM:SS).
-* Game history details page - the user can select and review a game he has played via the "Game history list" section. 
+* Game history details page - the user can select and review a game he has played via the "Game history list" section.
+
+Start
+
+* Run vite server for reactJS: 
+
+`npm run dev --hosts`
+

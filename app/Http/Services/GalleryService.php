@@ -7,12 +7,15 @@ use App\Http\Services\Models\Gallery;
 use App\Http\Services\Sites\SiteInterface;
 use App\Jobs\SaveImages;
 use App\Jobs\StoreGallery;
+use Illuminate\Bus\Batch;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use File;
 use Symfony\Component\Finder\SplFileInfo;
+use Throwable;
 
 class GalleryService implements GalleryServiceInterface
 {
@@ -24,8 +27,7 @@ class GalleryService implements GalleryServiceInterface
     private const DS = DIRECTORY_SEPARATOR;
 
     public function __construct(private \App\Models\Gallery $gallery)
-    {
-    }
+    {}
 
     public function download(string $galleryName, string $siteName, ?string $galleryUrl = self::HTML_FILE, ?string $html = null): void
     {
@@ -36,10 +38,28 @@ class GalleryService implements GalleryServiceInterface
         $start = self::START_NUMBER;
         $urlBlocks = $site->getUrlBlocks();
 
+        $jobs = [];
+
         foreach($urlBlocks as $block) {
-            SaveImages::dispatch($block, $galleryName, $start, $zeros, self::GALLERIES_PATH)->delay(now()->addSeconds(self::DELAY));
+            $jobs[] = new SaveImages(
+                $block,
+                str_ireplace(' ', '-', $galleryName),
+                $start,
+                $zeros,
+                self::GALLERIES_PATH
+            );
+            // SaveImages::dispatch($block, $galleryName, $start, $zeros, self::GALLERIES_PATH)->delay(now()->addSeconds(self::DELAY));
             $start += self::BLOCK_SIZE;
         }
+
+        $batch = Bus::batch($jobs)
+            ->then(function() use ($galleryName) {
+                    $this->store($galleryName);
+                }
+            )->catch(function (Batch $batch, Throwable $e) {
+                    throw $e;
+                }
+            )->dispatch();
     }
 
     private function setGallery(string $galleryUrl, ?string $html): void

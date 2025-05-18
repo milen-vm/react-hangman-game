@@ -32,14 +32,14 @@ class GalleryController extends Controller
     public function list(Request $request)
     {
         $query = $this->galleryService->getGalleriesQuery();
-
+// dd($query);
         return DtataTables::eloquent($query)
                 ->addIndexColumn()
                 ->editColumn('size', function ($row) {
                     return Number::fileSize($row->size);
                 })
                 ->editColumn('name', function ($row) {
-                    return '<a href="' . route('gallery.show', ['gallery' => $row->id]) . '">' . $row->name . '</a>';
+                    return '<a href="' . route('gallery.show', ['gallery' => $row->id,]) . '">' . $row->name . '</a>';
                 })
                 ->editColumn('created_at', function ($row) {
                     return [
@@ -63,13 +63,11 @@ class GalleryController extends Controller
         $name = trim($gallery['baseName']);
 
         $this->galleryService->download(
-            str_ireplace(' ', '-', $name),
+            $name,
             $gallery['site'],
             data_get($gallery, 'galleryUrl'),
             data_get($gallery, 'html')
         );
-
-        $this->galleryService->store($name);
 
         return redirect()->back();
     }
@@ -96,5 +94,10 @@ class GalleryController extends Controller
         $response->header('Content-Type', $fileData['ext']);
 
         return $response;
+    }
+
+    public function deleteImage($id)
+    {
+        // TODO delete image from gallery.
     }
 }
