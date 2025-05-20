@@ -32,7 +32,7 @@ class GalleryController extends Controller
     public function list(Request $request)
     {
         $query = $this->galleryService->getGalleriesQuery();
-// dd($query);
+
         return DtataTables::eloquent($query)
                 ->addIndexColumn()
                 ->editColumn('size', function ($row) {
@@ -61,7 +61,7 @@ class GalleryController extends Controller
     {
         $gallery = $request->only('site', 'galleryUrl', 'baseName', 'html');
         $name = trim($gallery['baseName']);
-
+        // php artisan queue:work
         $this->galleryService->download(
             $name,
             $gallery['site'],

@@ -5,6 +5,7 @@ namespace App\Http\Services\Sites;
 use DiDom\Document;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use function PHPUnit\Framework\isNull;
 
 abstract class ImxVipr
 {
@@ -46,6 +47,13 @@ abstract class ImxVipr
 
             if ($condition) {
                 $thumb = $this->getThumb($link);
+
+                if(is_null($thumb->getAttribute('src'))) {
+
+                    throw new \Exception($link->getAttribute('href'));
+                    // continue;
+                }
+                
                 $url = $this->createUrl($thumb->getAttribute('src'));
                 $urls[] = $url;
             }
