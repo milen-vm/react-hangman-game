@@ -20,6 +20,10 @@ Route::get('/pinfo', function () {
     return phpinfo();
 });
 /**
+ * portfolio
+ */
+
+/**
  * hangman game
  */
 Route::get('/game', 'App\Http\Controllers\GameController@index');
