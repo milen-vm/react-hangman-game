@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Models\Experience;
+use App\Models\Technology;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
@@ -71,6 +72,7 @@ class ExperienceController extends AdminController
         $form->date('date_from', __('От дата'));
         $form->date('date_to', __('До дата'));
         $form->text('company_name', __('Компания'));
+        $form->multipleSelect('technologies', __('Технологии'))->options(Technology::all()->pluck('title', 'id'));
 
         return $form;
     }
