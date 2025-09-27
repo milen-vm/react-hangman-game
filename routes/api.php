@@ -28,7 +28,10 @@ Route::apiResource('/projects', ProjectController::class)
 Route::apiResource('/experiences', ExperienceController::class)
     ->only(['index', 'show'])
     ->parameter('experiences', 'experience');
+// not work show method
+// Route::apiResource('/technologies', TechnologyController::class)
+//     ->only(['index', 'show'])
+//     ->parameter('technologies', 'technology ');
 
-Route::apiResource('/technologies', TechnologyController::class)
-    ->only(['index', 'show'])
-    ->parameter('technologies', 'technology ');
+Route::get('/technologies', [TechnologyController::class, 'index']);
+Route::get('/technologies/{technology}', [TechnologyController::class, 'show']);
