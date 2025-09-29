@@ -21,6 +21,7 @@ class ExperienceResource extends JsonResource
             'date_from' => $this->date_from->translatedFormat('d F Y'),
             'date_to' => $this->date_to->translatedFormat('d F Y'),
             'company_name' => $this->company_name,
+            'technologies' => TechnologyResource::collection($this->technologies),
         ];
     }
 }

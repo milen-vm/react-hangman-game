@@ -15,7 +15,7 @@ class ExperienceController extends Controller
      */
     public function index()
     {
-        return ExperienceResource::collection(Experience::all());
+        return ExperienceResource::collection(Experience::with('technologies')->get());
     }
 
     /**
