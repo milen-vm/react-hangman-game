@@ -32,6 +32,19 @@ class UserController extends AdminController
         $grid->column('position', __('Длъжност'))->sortable();
         $grid->column('description', __('За мен'));
         $grid->column('interests', __('Интереси'));
+        $grid->column('image', __('Снимка'))->image('/storage');
+        $grid->column('telegram', __('Телеграм'))->display(function ($link) {
+
+            return $link ? "<a href='{$link}' title='Телеграм' target='_blanck'>връзка</a>" : '-';
+        });
+        $grid->column('gitlab', __('Гитлаб'))->display(function ($link) {
+
+            return $link ? "<a href='{$link}' title='Гитлаб' target='_blanck'>връзка</a>" : '-';
+        });
+        $grid->column('github', __('Гитхъб'))->display(function ($link) {
+
+            return $link ? "<a href='{$link}' title='Гитхъб' target='_blanck'>връзка</a>" : '-';
+        });
 
         return $grid;
     }
@@ -52,6 +65,10 @@ class UserController extends AdminController
         $show->field('position', __('Длъжност'));
         $show->field('description', __('За мен'));
         $show->field('interests', __('Интереси'));
+        $show->field('image', __('Снимка'))->image('/storage');
+        $show->field('telegram', __('Телеграм'));
+        $show->field('gitlab', __('Гитлаб'));
+        $show->field('github', __('Гитхъб'));
         
         return $show;
     }
@@ -71,6 +88,10 @@ class UserController extends AdminController
         $form->text('position', __('Длъжност'));
         $form->textarea('description', __('За мен'));
         $form->textarea('interests', __('Интереси'));
+        $form->image('image', __('Снимка'));
+        $form->text('telegram', __('Телеграм'));
+        $form->text('gitlab', __('Гитлаб'));
+        $form->text('github', __('Гитхъб'));
 
         return $form;
     }

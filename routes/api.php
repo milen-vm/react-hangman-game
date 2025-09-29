@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\ExperienceController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\TechnologyController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,3 +36,6 @@ Route::apiResource('/experiences', ExperienceController::class)
 
 Route::get('/technologies', [TechnologyController::class, 'index']);
 Route::get('/technologies/{technology}', [TechnologyController::class, 'show']);
+
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{user}', [UserController::class, 'show']);
