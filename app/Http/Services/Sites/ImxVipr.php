@@ -7,38 +7,11 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use function PHPUnit\Framework\isNull;
 
-abstract class ImxVipr
+abstract class ImxVipr extends Site
 {
-    /**
-     * @var string
-     */
-    protected $galeryUrl;
-    /**
-     * @var int
-     */
-    protected $blockSize;
-    /**
-     * @var array
-     */
-    protected $urlBlocks = [];
-    /**
-     * @var int
-     */
-    protected $leadingZeros = 0;
-
-    public function __construct(string $galeryUrl, int $blockSize)
-    {
-        $this->galeryUrl = $galeryUrl;
-        $this->blockSize = $blockSize;
-
-        $this->setUrlBlocks();
-        $this->setLeadingzeros();
-    }
-
     protected function setUrlBlocks(): void
     {
-        $html = $this->getHtml();
-        $dom = new Document($html);
+        $dom = $this->getDOM();
         $links = $dom->find('a:has(img)');
         $urls = [];
 
@@ -67,32 +40,6 @@ abstract class ImxVipr
         if (count($urls)) {
             $this->urlBlocks[] = $urls;
         }
-    }
-
-    protected function getHtml(): string
-    {
-        if (Storage::disk('local')->exists($this->galeryUrl)) {
-            
-            return Storage::disk('local')->get($this->galeryUrl);
-        }
-
-        $client = new Client();
-        $html = $client->request('GET', $this->galeryUrl)->getBody();
-
-        return $html->getContents();
-    }
-
-    protected function setLeadingzeros(): void
-    {
-        $blocksCount = count($this->urlBlocks);
-        if ($blocksCount === 0) {
-            $this->leadingZeros = 0;
-
-            return;
-        }
-
-        $count = ($blocksCount - 1) * $this->blockSize + count($this->urlBlocks[$blocksCount - 1]);
-        $this->leadingZeros = strlen(strval($count));
     }
 
     public function getLeadingzeros(): int
