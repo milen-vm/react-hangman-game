@@ -19,39 +19,42 @@ abstract class Site
     /**
      * @var array
      */
-    protected $urlBlocks = [];
+    protected $urls = [];
     /**
      * @var int
      */
     protected $leadingZeros = 0;
 
-        public function __construct(string $galeryUrl, int $blockSize)
+    public function __construct(string $galeryUrl)
     {
         $this->galeryUrl = $galeryUrl;
-        $this->blockSize = $blockSize;
 
-        $this->setUrlBlocks();
+        $this->setUrls();
         $this->setLeadingzeros();
     }
 
-    abstract protected function setUrlBlocks();
+    abstract protected function setUrls();
+
+    public function getLeadingzeros(): int
+    {
+        return $this->leadingZeros;
+    }
+
+    public function getUrls(): array
+    {
+        return $this->urls;
+    }
 
     protected function setLeadingzeros(): void
     {
-        $blocksCount = count($this->urlBlocks);
-        if ($blocksCount === 0) {
+        $count = count($this->urls);
+        if ($count === 0) {
             $this->leadingZeros = 0;
 
             return;
         }
 
-        $count = ($blocksCount - 1) * $this->blockSize + count($this->urlBlocks[$blocksCount - 1]);
         $this->leadingZeros = strlen(strval($count));
-    }
-
-    public function getLeadingzeros(): int
-    {
-        return $this->leadingZeros;
     }
 
     protected function getDOM()

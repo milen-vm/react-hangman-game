@@ -78,7 +78,7 @@ class GalleryService implements GalleryServiceInterface
         $siteName = ucfirst(strtolower($siteName));
         $className = "\\App\\Http\\Services\\Sites\\{$siteName}";
 
-        return new $className($galleryUrl, self::BLOCK_SIZE);
+        return new $className($galleryUrl);
     }
 
     public function store($name): void
