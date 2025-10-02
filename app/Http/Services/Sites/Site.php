@@ -11,11 +11,7 @@ abstract class Site
     /**
      * @var string
      */
-    protected $galeryUrl;
-    /**
-     * @var int
-     */
-    protected $blockSize;
+    protected $html;
     /**
      * @var array
      */
@@ -25,9 +21,9 @@ abstract class Site
      */
     protected $leadingZeros = 0;
 
-    public function __construct(string $galeryUrl)
+    public function __construct(string $html)
     {
-        $this->galeryUrl = $galeryUrl;
+        $this->html = $html;
 
         $this->setUrls();
         $this->setLeadingzeros();
@@ -59,22 +55,8 @@ abstract class Site
 
     protected function getDOM()
     {
-        $html = $this->getHtml();
-        $dom = new Document($html);
+        $dom = new Document($this->html);
 
         return $dom;
-    }
-
-    protected function getHtml(): string
-    {
-        if (Storage::disk('local')->exists($this->galeryUrl)) {
-            
-            return Storage::disk('local')->get($this->galeryUrl);
-        }
-
-        $client = new Client();
-        $html = $client->request('GET', $this->galeryUrl)->getBody();
-
-        return $html->getContents();
     }
 }

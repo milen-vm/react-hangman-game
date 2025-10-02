@@ -22,7 +22,7 @@ class GalleryDownloadRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'site' => ['required', 'in:vipr,imx'],
+            'site' => ['required', 'in:vipr,imx,PLabDirekt'],
             'galleryUrl' => ['required_without:isHtml'],
             'baseName' => ['required'],
             'html' => ['required_if:isHtml,on'],

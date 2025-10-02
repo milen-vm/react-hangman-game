@@ -36,8 +36,5 @@ class SiteImg extends Command
         $galleryService->download($galleryName, $siteName, $galeryUrl);
     }
 
-    // php artisan queue:work
-    // php artisan queue:restart
-    // php artisan queue:listen
     // php artisan app:site-img "images/gal.html" "name" "site"
 }

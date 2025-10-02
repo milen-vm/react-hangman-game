@@ -19,8 +19,9 @@
                     <label for="exampleInputPassword1" class="form-label">Site gallery</label>
                     <select class="form-select" name="site">
                         <option>--</option>
+                        <option value="PLabDirekt" {{ old('site') === 'PLabDirekt' ? 'selected' : 'selected' }}>PLabDirekt</option>
                         <option value="vipr" {{ old('site') === 'vipr' ? 'selected' : '' }}>Vipr</option>
-                        <option value="imx" {{ old('site') === 'imx' ? 'selected' : 'selected' }}>Imx</option>
+                        <option value="imx" {{ old('site') === 'imx' ? 'selected' : '' }}>Imx</option>
                     </select>
                     @error('site')
                         <div class="alert alert-danger mt-2">{{ $message }}</div>

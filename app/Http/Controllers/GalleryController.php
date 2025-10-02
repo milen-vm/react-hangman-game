@@ -61,12 +61,13 @@ class GalleryController extends Controller
     {
         $gallery = $request->only('site', 'galleryUrl', 'baseName', 'html');
         $name = trim($gallery['baseName']);
-        // php artisan queue:work
+            // php artisan queue:work
+            // php artisan queue:restart
+            // php artisan queue:listen
         $this->galleryService->download(
             $name,
             $gallery['site'],
-            data_get($gallery, 'galleryUrl'),
-            data_get($gallery, 'html')
+            data_get($gallery, 'galleryUrl') ?? data_get($gallery, 'html')
         );
 
         return redirect()->back();

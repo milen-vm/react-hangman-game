@@ -14,29 +14,40 @@ use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use File;
+use GuzzleHttp\Client;
 use Symfony\Component\Finder\SplFileInfo;
 use Throwable;
 
 class GalleryService implements GalleryServiceInterface
 {
-    private const DELAY = 7;
-    private const BLOCK_SIZE = 15;
-    private const START_NUMBER = 1;
-    private const HTML_FILE = 'images/gallery.html';
-    private const GALLERIES_PATH = 'images';
+    private const int DELAY = 7;
+    private const int BLOCK_SIZE = 15;
+    private const int START_NUMBER = 1;
+    private const string GALLERIES_PATH = 'images';
     private const DS = DIRECTORY_SEPARATOR;
 
     public function __construct(private \App\Models\Gallery $gallery)
     {}
 
-    public function download(string $galleryName, string $siteName, ?string $galleryUrl = self::HTML_FILE, ?string $html = null): void
+    /**
+     * @param string $galleryName
+     * @param string $siteName site casses in App\Http\Services\Sites
+     * @param string $galleryResource web url or html string of the gallery
+     * @return void
+     */
+    public function download(string $galleryName, string $siteName, string $galleryResource): void
     {
-        $galleryUrl = $galleryUrl ?? self::HTML_FILE;
-        $this->setGallery($galleryUrl, $html);
-        $site = $this->getSiteClass($siteName, $galleryUrl);
+        if (filter_var($galleryResource, FILTER_VALIDATE_URL)) {
+            $client = new Client();
+            $html = $client->request('GET', $galleryResource)->getBody();
+        } else {
+            $html = $galleryResource;
+        }
+
+        $site = $this->getSiteClass($siteName, $html);
         $zeros = $site->getLeadingzeros();
         $start = self::START_NUMBER;
-        $urlBlocks = $site->getUrlBlocks();
+        $urlBlocks = array_chunk($site->getUrls(), self::BLOCK_SIZE);
 
         $jobs = [];
 
@@ -62,23 +73,13 @@ class GalleryService implements GalleryServiceInterface
             )->dispatch();
     }
 
-    private function setGallery(string $galleryUrl, ?string $html): void
+    private function getSiteClass(string $siteName, string $html): SiteInterface
     {
-        if (filter_var($galleryUrl, FILTER_VALIDATE_URL)) {
-            return;
-        }
-
-        if ($html) {
-            Storage::disk('local')->put($galleryUrl, $html);
-        }
-    }
-
-    private function getSiteClass(string $siteName, string $galleryUrl): SiteInterface
-    {
-        $siteName = ucfirst(strtolower($siteName));
+        // TODO change site name
+        // $siteName = ucfirst(strtolower($siteName));
         $className = "\\App\\Http\\Services\\Sites\\{$siteName}";
 
-        return new $className($galleryUrl);
+        return new $className($html);
     }
 
     public function store($name): void

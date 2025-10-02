@@ -14,6 +14,6 @@ class Vipr extends ImxVipr implements SiteInterface
 
     protected function createUrl(string $url): string
     {
-        return str_replace('/th/', '/i/', $url);
+        return str_replace('//th/', '//i/', $url);
     }
 }
