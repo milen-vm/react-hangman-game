@@ -97,6 +97,11 @@ class GalleryController extends Controller
         return $response;
     }
 
+    public function deleteGallery(Gallery $gallery)
+    {
+        // TODO delete gallery from db and all images.
+    }
+
     public function deleteImage($id)
     {
         // TODO delete image from gallery.
