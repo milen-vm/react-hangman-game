@@ -21,7 +21,7 @@ use Throwable;
 class GalleryService implements GalleryServiceInterface
 {
     private const int DELAY = 7;
-    private const int BLOCK_SIZE = 15;
+    private const int BLOCK_SIZE = 30;
     private const int START_NUMBER = 1;
     private const string GALLERIES_PATH = 'images';
     private const DS = DIRECTORY_SEPARATOR;
