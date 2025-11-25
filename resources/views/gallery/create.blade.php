@@ -74,21 +74,21 @@
             if (isChecked) {
                 galleryUrl
                     .parent()
-                        .hide()
+                    .hide()
                     .end()
                     .val('');
 
                 galleryHtml
                     .parent()
-                        .show();
+                    .show();
             } else {
                 galleryUrl
                     .parent()
-                        .show();
+                    .show();
 
                 galleryHtml
                     .parent()
-                        .hide()
+                    .hide()
                     .end()
                     .val('');
             }
