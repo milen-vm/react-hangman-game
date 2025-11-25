@@ -51,7 +51,11 @@ class GalleryController extends Controller
                     $sql = "DATE_FORMAT(created_at, '%d %b %Y') like ?";
                     $query->whereRaw($sql, ["%{$search}%"]);
                 })
-                ->rawColumns(['name'])
+                ->addColumn('actions', function ($row) {
+                    // return 5;
+                    return '<a href="' . $row->id . '" title="Remove gallery">Delete</a>';
+                })
+                ->rawColumns(['name', 'actions'])
                 ->removeColumn('abs_path')
                 ->removeColumn('updated_at')
                 ->make(true);

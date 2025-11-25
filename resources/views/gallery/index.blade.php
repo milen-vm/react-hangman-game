@@ -13,7 +13,8 @@
                     <th>Path</th>
                     <th>Count</th>
                     <th>Size</th>
-                    <th>Modified At</th>
+                    <th>Modified</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -37,12 +38,14 @@
                 {data: 'rel_path', name: 'rel_path'},
                 {data: 'count', name: 'count'},
                 {data: 'size', name: 'size', searchable: false},
-                {data: 'created_at', name: 'created_at'}
+                {data: 'created_at', name: 'created_at'},
+                {data: 'actions', name: 'actions', searchable: false}
             ],
             columnDefs: [
                 {targets: 0, searchable: false, orderable: false},
+                {targets: -1, searchable: false, orderable: false},
                 {
-                    targets: -1,
+                    targets: -2,
                     data: 'modifiedAt',
                     render: {
                         _: 'timestamp',
