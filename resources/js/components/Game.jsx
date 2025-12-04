@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Word from './Word';
 import Letter from './Letter'
+import LettersList from './LettersList';
 import Storage from '../utils/Storage';
 
 class Game extends Component {
@@ -55,16 +56,20 @@ class Game extends Component {
     setNewMove = (lt) => {
         let indexs = [],
             letter = lt.toLowerCase(),
-            wordChars = this.state.wordChars;
+            wordChars = this.state.wordChars,
+            exists = false;
 
         wordChars.forEach((val, i) => {
             if(val.toLowerCase() === letter) {
                 indexs.push(i);
+                exists = true;
             }
         });
 
         this.setState((prevState) => {
-            prevState.userLetters.push(lt);
+            // let element = <span style={ {color: color} }>{ lt }</span>;
+            prevState.userLetters.push({letter: lt, exists: exists});
+
             let state = { userLetters: prevState.userLetters }
 
             if(indexs.length > 0) {
@@ -116,7 +121,7 @@ class Game extends Component {
                 <h2>The Hangman Game</h2>
                 <Word chars={ this.state.openChars }/>
                 <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
-                <p className="mt-4">Already selected letters: <strong>{ this.state.userLetters.join(', ') }</strong></p>
+                <p className="mt-4">Already selected letters: <strong><LettersList list={ this.state.userLetters } /></strong></p>
                 <p className="mt-4">Remaining omissions: <strong>{ this.state.miss }</strong></p>
                 { this.gameStatus() }
         </>
