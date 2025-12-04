@@ -1,3 +1,3 @@
 import DataTable from "./gallery/DataTable";
 
-let dataTable = new DataTable('test');
+const dataTable = new DataTable('test');
