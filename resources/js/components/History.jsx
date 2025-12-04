@@ -4,6 +4,8 @@ import { Table } from 'antd';
 
 import Storage from '../utils/Storage';
 
+import LettersList from './LettersList';
+
 const columns = [
     {
         title: 'Word to guess',
@@ -51,7 +53,7 @@ class History extends Component {
             element.action = <Link title='Show game' to={'/game/review/' + index }>Review</Link>;
             element.key = index;
             element.wordChars = element.wordChars.join('');
-            element.userLetters = element.userLetters.join(', ');
+            element.userLetters = <LettersList list={ element.userLetters } />;
 
             let win = '';
             if (element.win) {
