@@ -4,6 +4,8 @@ import Word from './Word';
 
 import Storage from '../utils/Storage';
 
+import LettersList from './LettersList';
+
 class Review extends Component {
     
     constructor(props) {
@@ -33,7 +35,7 @@ class Review extends Component {
         return <>
             <h2>The Hangman Game - history game review</h2>
             <Word chars={ this.state.openChars }/>
-            <p className="mt-4">Already selected letters: <strong>{ this.state.userLetters.join(', ') }</strong></p>
+            <p className="mt-4">Already selected letters: <strong>{ <LettersList list={ this.state.userLetters } /> }</strong></p>
         </>;
     }
 }

@@ -48,7 +48,7 @@ class History extends Component {
 
     componentDidMount() {
         let data = Storage.getData('games') || [];
-        console.log(data);
+
         data.forEach((element, index) => {
             element.action = <Link title='Show game' to={'/game/review/' + index }>Review</Link>;
             element.key = index;

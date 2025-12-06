@@ -10,8 +10,7 @@ class LettersList extends Component {
                     <span style={ {color: (item.exists ? 'green' : 'red')} }> { item.letter }</span>{ index + 1 === length ? '' : ','}
                 </React.Fragment>
             )}
-        </>
-    )
+        </>)
     }
 }
 
