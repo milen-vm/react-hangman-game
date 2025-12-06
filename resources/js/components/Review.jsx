@@ -22,8 +22,6 @@ class Review extends Component {
         let id = this.props.params.id,
             game = Storage.getData('games')[id];
 
-        console.log(game);
-
         this.setState({
             openChars: game.openChars,
             userLetters: game.userLetters,
