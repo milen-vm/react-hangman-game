@@ -118,7 +118,7 @@ class Game extends Component {
 
     render() {
         return <>
-                <h2>The Hangman Game</h2>
+                <h2>The Hangman Game!!!</h2>
                 <Word chars={ this.state.openChars }/>
                 <Letter setLetter={ this.setNewMove } gameEnd={ this.state.win || (this.state.miss < 1) } />
                 <p className="mt-4">Already selected letters: <strong><LettersList list={ this.state.userLetters } /></strong></p>
