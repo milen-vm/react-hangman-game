@@ -49,6 +49,7 @@
                 top: 95%;
             }
         </style>
+        @vite('resources/js/gallery.js')
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

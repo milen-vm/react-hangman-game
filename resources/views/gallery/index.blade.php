@@ -5,7 +5,7 @@
     <h1 class="mt-5 text-center">Galleries list</h1>
 
     <div class="table-responsive">
-        <table class="table table-hover data-table">
+        <table id="galleryTable" class="table table-hover data-table" data-url="{{ route('gallery.list') }}">
             <thead class="gall">
                 <tr>
                     <th>No</th>
@@ -26,36 +26,8 @@
 @section('scripts')
 <script>
     $(document).ready(function () {
-        let table = $('.data-table').DataTable({
-            processing: true,
-            serverSide: true,
-            {{-- displayStart: 0, --}}
-            // responsive: true,
-            ajax: "{{ route('gallery.list') }}",
-            columns: [
-                {data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false},
-                {data: 'name', name: 'name'},
-                {data: 'rel_path', name: 'rel_path'},
-                {data: 'count', name: 'count'},
-                {data: 'size', name: 'size', searchable: false},
-                {data: 'created_at', name: 'created_at'},
-                {data: 'actions', name: 'actions', searchable: false}
-            ],
-            columnDefs: [
-                {targets: 0, searchable: false, orderable: false},
-                {targets: -1, searchable: false, orderable: false},
-                {
-                    targets: -2,
-                    data: 'modifiedAt',
-                    render: {
-                        _: 'timestamp',
-                        filter: 'display',
-                        display: 'display'
-                    }
-                }
-            ]
-        });
-
+        // let url = $('#galleryTable').data('url');
+        // const galleryTable = new DataTable('.data-table', url);
     });
 </script>
 @endsection
