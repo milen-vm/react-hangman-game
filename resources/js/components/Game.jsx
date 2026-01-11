@@ -59,6 +59,12 @@ class Game extends Component {
             wordChars = this.state.wordChars,
             exists = false;
 
+        // check is letter already picked
+        if (this.isLetterPicked(lt)) {
+            // skip state update
+            return;
+        }
+
         wordChars.forEach((val, i) => {
             if(val.toLowerCase() === letter) {
                 indexs.push(i);
@@ -91,6 +97,19 @@ class Game extends Component {
             
             return state;
         });
+    }
+
+    isLetterPicked = (lt) => {
+        let { userLetters } = this.state,
+            isPicked = false;
+
+        userLetters.forEach(item => {
+            if(item.letter === lt) {
+                isPicked = true;
+            }
+        });
+
+        return isPicked;
     }
 
     newGame = () => {
