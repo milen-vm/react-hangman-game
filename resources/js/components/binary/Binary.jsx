@@ -27,6 +27,7 @@ class Binary extends Component {
                 break;
             }
         }
+
         this.setState({binary: binary});;
     }
 
