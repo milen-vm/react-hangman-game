@@ -40,7 +40,8 @@ class Navbar extends Component {
                         new Array(
                             ['/', 'Laravel'],
                             ['/game', 'Game'],
-                            ['/game/history', 'History']
+                            ['/game/history', 'History'],
+                            ['/binary', 'To Binary']
                         ).map((val, index) => {
                             return {
                                 key: val[0],
