@@ -1,8 +1,6 @@
-import React, { Component, createRef } from 'react';
+import React, { Component } from 'react';
 
 class Binary extends Component {
-
-    decimalRef = createRef();
 
     constructor(props) {
         super(props);
@@ -16,17 +14,14 @@ class Binary extends Component {
         let decimal = floor(e.target.value),
             binary = '';
 
-        while(true) {
+        do {
             let quotient = floor(decimal / 2),
                 remainder = decimal % 2;
 
             binary = `${remainder}${binary}`;
             decimal = quotient;
-
-            if(decimal === 0) {
-                break;
-            }
         }
+        while(decimal > 0);
 
         this.setState({binary: binary});;
     }
@@ -37,7 +32,6 @@ class Binary extends Component {
             <div className="row mt-4">
                 <div className="col-auto">
                     <input 
-                        ref={ this.decimalRef }
                         type="text" 
                         className="form-control" 
                         placeholder="Enter decimal number" 
