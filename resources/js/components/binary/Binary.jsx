@@ -87,7 +87,7 @@ class Binary extends Component {
                         placeholder="Enter binary number" 
                         onChange={ this.getDecimal }
                     />
-                    <p className="mt-4">Decimal: <strong className="text-danger">{ this.state.decimal }</strong></p>
+                    <p className="mt-4">Decimal: <strong>{ this.state.decimal }</strong></p>
                 </div>
             </div>
         </>;
