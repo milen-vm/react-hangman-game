@@ -43,4 +43,5 @@ Route::get('/gallery/{gallery}/image/{index}', 'App\Http\Controllers\GalleryCont
 /**
  * Auth
  */
-Route::get('/login', 'App\Http\Controllers\Auth\AuthController@showLogin')->name('auth.login');
+Route::get('/login', 'App\Http\Controllers\Auth\AuthController@showLogin')->name('auth.showLogin');
+Route::post('/login','App\Http\Controllers\Auth\AuthController@login')->name('auth.login');

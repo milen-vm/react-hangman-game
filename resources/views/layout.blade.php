@@ -67,7 +67,7 @@
                         <a class="nav-link" href="{{ route('gallery.create') }}">Download</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                        <a class="nav-link" href="{{ route('auth.showLogin') }}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled">Disabled</a>
