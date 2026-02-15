@@ -41,7 +41,19 @@ Route::post('/gallery/create', 'App\Http\Controllers\GalleryController@store')->
 Route::get('/gallery/{gallery}/show/{index?}', 'App\Http\Controllers\GalleryController@show')->name('gallery.show');
 Route::get('/gallery/{gallery}/image/{index}', 'App\Http\Controllers\GalleryController@showImage')->name('gallery.show.image');
 /**
- * Auth
+ * Auth Guest
  */
 Route::get('/login', 'App\Http\Controllers\Auth\AuthController@showLogin')->name('auth.showLogin');
 Route::post('/login','App\Http\Controllers\Auth\AuthController@login')->name('auth.login');
+Route::get('/register', 'App\Http\Controllers\Auth\AuthController@showRegister')->name('auth.showRegister');
+Route::post('/register', 'App\Http\Controllers\Auth\AuthController@register')->name('auth.register');
+/**
+ * Auth User
+ */
+Route::middleware('auth')->group(function() {
+    Route::get('/profile', 'App\Http\Controllers\Auth\AuthController@showProfile')->name('auth.showProfile');
+    Route::post('/profile', 'App\Http\Controllers\Auth\AuthController@updateProfile')->name('auth.updateProfile');
+    Route::get('/password', 'App\Http\Controllers\Auth\AuthController@showPassword')->name('auth.showPassword');
+    Route::post('/password', 'App\Http\Controllers\Auth\AuthController@updatePassword')->name('auth.updatePassword');
+    Route::post('/logout', 'App\Http\Controllers\Auth\AuthController@logout')->name('auth.logout');
+});
