@@ -8,6 +8,7 @@ use Hash;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginAuthRequest;
+use Session;
 
 class AuthController extends Controller
 {
@@ -57,8 +58,9 @@ class AuthController extends Controller
     public function showProfile()
     {
         $user = Auth::user();
+        $status = Session::get('status');
 
-        return view('auth.profile', compact('user'));
+        return view('auth.profile', compact('user', 'status'));
     }
 
     public function updateProfile(Request $request)
@@ -71,7 +73,7 @@ class AuthController extends Controller
         $user = Auth::user();
         $user->update($data);
 
-        return redirect()->route('auth.showProfile')->with('status', 'User is updated successfuli!');
+        return redirect()->route('auth.showProfile')->with('status', 'User is updated successfully!');
     }
 
     public function showPassword()
@@ -96,6 +98,6 @@ class AuthController extends Controller
         $user->password = Hash::make($data['new_password']);
         $user->save();
 
-        return redirect()->route('auth.showProfile')->with('newPass', 'The passward is changed successfuly!');
+        return redirect()->route('auth.showProfile')->with('status', 'The passward is changed successfully!');
     }
 }

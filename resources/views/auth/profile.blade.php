@@ -3,8 +3,7 @@
 @section('auth')
 
 <div class="col-md-4 mt-4">
-{{ dd($status) }}
-    @if (isset($status))
+    @if ($status)
         <div class="alert alert-success" role="alert">
             {{ $status }}
         </div>
