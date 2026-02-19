@@ -8,7 +8,7 @@
                class="form-control @error('current_password')is-invalid @enderror"
                id="password"
                name="current_password">
-        @error('password')
+        @error('current_password')
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
@@ -18,7 +18,7 @@
                class="form-control @error('new_password')is-invalid @enderror"
                id="password"
                name="new_password">
-        @error('password')
+        @error('new_password')
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
@@ -28,7 +28,7 @@
                class="form-control @error('new_password_confirmation')is-invalid @enderror"
                id="password_confirmation"
                name="new_password_confirmation">
-        @error('password_confirmation')
+        @error('new_password_confirmation')
             <div class="invalid-feedback d-block">{{ $message }}</div>
         @enderror
     </div>
