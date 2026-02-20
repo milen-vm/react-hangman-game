@@ -66,9 +66,25 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('gallery.create') }}">Download</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('auth.showLogin') }}">Login</a>
-                    </li>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('auth.showLogin') }}">Login</a>
+                        </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('auth.showProfile') }}">Profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('auth.showPassword') }}">Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <form action="{{ route('auth.logout') }}" method="POST">
+                                @csrf
+                                <button class="nav-link" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    @endauth
                     <li class="nav-item">
                         <a class="nav-link disabled">Disabled</a>
                     </li>

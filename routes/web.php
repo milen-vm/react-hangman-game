@@ -43,10 +43,12 @@ Route::get('/gallery/{gallery}/image/{index}', 'App\Http\Controllers\GalleryCont
 /**
  * Auth Guest
  */
-Route::get('/login', 'App\Http\Controllers\Auth\AuthController@showLogin')->name('auth.showLogin');
-Route::post('/login','App\Http\Controllers\Auth\AuthController@login')->name('auth.login');
-Route::get('/register', 'App\Http\Controllers\Auth\AuthController@showRegister')->name('auth.showRegister');
-Route::post('/register', 'App\Http\Controllers\Auth\AuthController@register')->name('auth.register');
+Route::middleware('guest')->group(function() {
+    Route::get('/login', 'App\Http\Controllers\Auth\AuthController@showLogin')->name('auth.showLogin');
+    Route::post('/login','App\Http\Controllers\Auth\AuthController@login')->name('auth.login');
+    Route::get('/register', 'App\Http\Controllers\Auth\AuthController@showRegister')->name('auth.showRegister');
+    Route::post('/register', 'App\Http\Controllers\Auth\AuthController@register')->name('auth.register');
+});
 /**
  * Auth User
  */
