@@ -21,6 +21,15 @@
         </table>
     </div>
 </div>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal">
+  Open modal
+</button>
+@include('partials/modal', [
+    'mId' => 'deleteModal',
+    'mTitle' => 'Delete gallery',
+    'mContent' => 'Current gallery',
+    'mAction' => 'Delete'
+])
 @endsection
 
 @section('scripts')
