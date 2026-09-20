@@ -1,12 +1,12 @@
 @extends('layout')
 
 @section('content')
-<div class="text-center position-relative image-container">
+<div class="text-center position-relative image-container" id="image-container">
     <img class="img-fluid " src="{{ route('gallery.show.image', ['gallery' => $gallery->id, 'index' => $index]) }}" alt="Gallery image"/>
 
     @if($index > 0)
         <div class="position-fixed top-50 left-btn">
-            <a href="{{ route('gallery.show', ['gallery' => $gallery->id, 'index' => $index - 1]) }}" class="btn btn-primary-outline" id="right-btn">
+            <a href="{{ route('gallery.show', ['gallery' => $gallery->id, 'index' => $index - 1]) }}#image-container" class="btn btn-primary-outline" id="right-btn">
                 <i class="bi bi-caret-left"></i>
             </a>
         </div>
@@ -14,7 +14,7 @@
 
     @if(($index + 1) < $gallery->count)
         <div class="position-fixed top-50 right-btn">
-            <a href="{{ route('gallery.show', ['gallery' => $gallery->id, 'index' => $index +  1]) }}" class="btn btn-primary-outline" id="left-btn">
+            <a href="{{ route('gallery.show', ['gallery' => $gallery->id, 'index' => $index +  1]) }}#image-container" class="btn btn-primary-outline" id="left-btn">
                 <i class="bi bi-caret-right"></i>
             </a>
         </div>
