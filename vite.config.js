@@ -9,6 +9,7 @@ export default defineConfig({
         laravel({
             input: {
                 // 'resources/sass/app.scss',
+                laravel: 'resources/css/laravel.css',
                 app: 'resources/js/app.jsx',
                 gallery: 'resources/js/gallery.js'
             },

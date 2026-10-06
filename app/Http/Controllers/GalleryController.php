@@ -52,8 +52,8 @@ class GalleryController extends Controller
                     $query->whereRaw($sql, ["%{$search}%"]);
                 })
                 ->addColumn('actions', function ($row) {
-                    // return 5;
-                    return '<a href="' . $row->id . '" title="Remove gallery">Delete</a>';
+                    return '<button data-name="'. $row->name . '" data-url="' . route('gallery.delete', [$row->id]) . '" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>';
+                    return '<a href="' . $row->id . '" title="Remove gallery data-bs-toggle="modal" data-bs-target="#deleteModal"">Delete</a>';
                 })
                 ->rawColumns(['name', 'actions'])
                 ->removeColumn('abs_path')
@@ -104,6 +104,11 @@ class GalleryController extends Controller
     public function deleteGallery(Gallery $gallery)
     {
         // TODO delete gallery from db and all images.
+    }
+
+    public function destroyGallery(Gallery $gallery)
+    {
+        // TODO 
     }
 
     public function deleteImage($id)

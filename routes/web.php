@@ -20,9 +20,9 @@ Route::get('/pinfo', function () {
     return phpinfo();
 });
 /**
- * portfolio
+ * calendar
  */
-
+Route::get('/calendar', 'App\Http\Controllers\CalendarController@index')->name('calendar.index');
 /**
  * hangman game and React staf
  */
@@ -40,6 +40,8 @@ Route::get('/gallery/create', 'App\Http\Controllers\GalleryController@create')->
 Route::post('/gallery/create', 'App\Http\Controllers\GalleryController@store')->name('gallery.store');
 Route::get('/gallery/{gallery}/show/{index?}', 'App\Http\Controllers\GalleryController@show')->name('gallery.show');
 Route::get('/gallery/{gallery}/image/{index}', 'App\Http\Controllers\GalleryController@showImage')->name('gallery.show.image');
+Route::get('/gallery/{gallery}/delete', 'App\Http\Controllers\GalleryControler@deleteGalerry')->name('gallery.delete');
+Route::delete('/gallery/{gallery}', 'App\Http\Controllers\GalleryControler@destroyGalerry')->name('gallery.destroy');
 /**
  * Auth Guest
  */

@@ -49,7 +49,7 @@
                 top: 95%;
             }
         </style>
-        @vite('resources/js/gallery.js')
+        @vite(['resources/js/gallery.js', 'resources/css/laravel.css'])
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -65,6 +65,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('gallery.create') }}">Download</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('calendar.index') }}">Calendar</a>
                     </li>
                     @guest
                         <li class="nav-item">
