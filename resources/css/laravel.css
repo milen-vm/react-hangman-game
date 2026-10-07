@@ -1,3 +1,71 @@
 #montYear {
+    /* margin: 0; */
+}
+
+:root {
+    --primary: #3b82F6;
+    --primary-light: #DBEAFE;
+    --primary-dark: #1E3A8A;
+    --background: #F9FAFB;
+    --success: #D1FAE5;
+    --success-test: #065F46;
+    --error: #FEE2E2;
+    --error-text: #B91C1C;
+}
+
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.calendar-body  {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background);
+    color: #333;
+    line-height: 1.6;
+}
+
+.calendar-body header {
+    background-color: var(--primary);
+    color: white;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+/* Clock */
+
+.clock-container {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 1rem;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--primary);
+}
+
+@media (max-width: 768px) {
+    .clock-container {
+        font-size: 1.4rem;
+        padding: 0.75rem;
+    }
+}
+
+/* Calendar */
+
+.calendar {
+    max-width: 1000px;
+    margin: 2rem auto;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);    
+}
+
+.nav-btn-container {
+    display: flex;
+    justify-content: space-between;
 }

@@ -1,16 +1,15 @@
 @extends('layout')
 
 @section('content')
-<div class="container">
+<div class="container calendar-body">
     <header>
         <h1>&#128197; My Calendar</h1>
-
-        <!-- Clock -->
-        <div class="clock-container">
-            <div id="clock"></div>
-        </div>
-
     </header>
+
+    <!-- Clock -->
+    <div class="clock-container">
+        <div id="clock"></div>
+    </div>
 
     <!-- Calendar -->
     <div class="calendar">
