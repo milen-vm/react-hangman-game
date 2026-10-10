@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-<div class="container calendar-body">
+<div class="container-fluid calendar-body">
     <header>
         <h1>&#128197; My Calendar</h1>
     </header>
