@@ -23,6 +23,11 @@ Route::get('/pinfo', function () {
  * calendar
  */
 Route::get('/calendar', 'App\Http\Controllers\CalendarController@index')->name('calendar.index');
+Route::get('/calendar/appointment/create', 'App\Http\Controllers\CalendarController@create')->name('appointment.create');
+Route::post('/calendar/appointment', 'App\Http\Controllers\CalendarController@store')->name('appointment.store');
+Route::get('/calendar/appointment/{appointment}/edit', 'App\Http\Controllers\CalendarController@edit')->name('appointment.edit');
+Route::put('/calendar/appointment/{appointment}', 'App\Http\Controllers\CalendarController@update')->name('appointment.update');
+Route::delete('/calendar/appointment/{appointment}', 'App\Http\Controllers\CalendarController@destroy')->name('appointment.destroy');
 /**
  * hangman game and React staf
  */
