@@ -4,14 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AppointmentRequest;
 use App\Models\Appointment;
+use Illuminate\Http\Request;
 
 class CalendarController extends Controller
 {
-    public function index()
+    public function index(Request $reqest)
     {
         $appointments = Appointment::all();
-dd($appointments[0]->starts_at);
+
         return view('calendar.index', compact('appointments'));
+    }
+
+    public function json()
+    {
+        $appointments = Appointment::all();
+
+        return response()->json($appointments);
     }
 
     public function create()
