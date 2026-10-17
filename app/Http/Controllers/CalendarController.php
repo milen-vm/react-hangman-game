@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AppointmentRequest;
+use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,8 @@ class CalendarController extends Controller
     {
         $appointments = Appointment::all();
 
-        return response()->json($appointments);
+        return AppointmentResource::collection($appointments);
+        // return response()->json($appointments);
     }
 
     public function create()

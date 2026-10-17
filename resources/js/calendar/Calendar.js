@@ -1,6 +1,6 @@
 class Calendar {
     #currentDate = new Date();
-    #weekDays = ['Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Суб', 'Нед'];
+    #weekDays = ['Пон', 'Вт', 'Ср', 'Чет', 'Пет', 'Съб', 'Нед'];
     #calendar;
     #monthYear;
     #events;
@@ -20,8 +20,8 @@ class Calendar {
         fetch('/calendar/json', {method: 'GET', headers: {}})
             .then(response => response.json())
             .then(body => {
-                this.cl(body)
-                this.#events = body;
+                this.#events = body.data;
+                this.cl(this.#events);
 
                 this.#renderCalendar();
             });
@@ -61,7 +61,7 @@ class Calendar {
 
         let weekDay = firstDayOfMonth;
         for(let day = 1; day <= totalDays; day++) {
-            const dateStr = `${String(day).padStart(2, '0')}-${String(month + 1).padStart(2,'0')}-${year}`;
+            const dateStr = `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2, '0')}`;
 
             const cell = document.createElement('div');
             cell.className = 'day';
@@ -87,7 +87,7 @@ class Calendar {
                 weekDay = 0;
             }
 
-            const eventsToday = this.#events.filter(e => e.starts_at === dateStr);    // TODO: define events variable
+            const eventsToday = this.#events.filter(e => e.start_date === dateStr);    // TODO: define events variable
             const eventBox = document.createElement('div');
             eventBox.className = 'events';
 
@@ -105,7 +105,7 @@ class Calendar {
 
                 const time = this.dcr('div');
                 time.className = 'time';
-                time.textContent = item.starts_at + ' - ' + item.ends_at;
+                time.textContent = item.start_time + ' - ' + item.end_time;
 
                 ev.appendChild(title);
                 ev.appendChild(discription);
