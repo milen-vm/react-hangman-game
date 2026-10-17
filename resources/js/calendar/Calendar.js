@@ -25,14 +25,6 @@ class Calendar {
 
                 this.#renderCalendar();
             });
-
-        // const xhttp = new XMLHttpRequest();
-        // xhttp.onload = function () {
-        //     console.log(this.responseText);
-        // };
-
-        // xhttp.open('GET', '/calendar');
-        // xhttp.send();
     }
 
     #setElements() {
@@ -49,7 +41,7 @@ class Calendar {
         const today = new Date(date.valueOf());
 
         const totalDays = new Date(year, month + 1, 0).getDate();
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
+        const firstDayOfMonth = new Date(year, month, 1).getDay() - 1;
 
         this.#monthYear.textContent = date.toLocaleDateString('bg-BG', {
             month: 'long',
@@ -67,11 +59,15 @@ class Calendar {
             this.#calendar.appendChild(document.createElement('div'));
         }
 
+        let weekDay = firstDayOfMonth;
         for(let day = 1; day <= totalDays; day++) {
             const dateStr = `${String(day).padStart(2, '0')}-${String(month + 1).padStart(2,'0')}-${year}`;
 
             const cell = document.createElement('div');
             cell.className = 'day';
+            if(weekDay === 5 || weekDay === 6) {
+                cell.classList.add('free-day');
+            }
 
             if(
                 day === today.getDate() &&
@@ -84,7 +80,12 @@ class Calendar {
             const dateDiv = document.createElement('div');
             dateDiv.className = 'date-number';
             dateDiv.textContent = day;
+
             cell.appendChild(dateDiv);
+
+            if(++weekDay > 6) {
+                weekDay = 0;
+            }
 
             const eventsToday = this.#events.filter(e => e.starts_at === dateStr);    // TODO: define events variable
             const eventBox = document.createElement('div');

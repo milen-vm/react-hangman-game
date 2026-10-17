@@ -11,6 +11,8 @@
     --success-text: #065F46;
     --error: #FEE2E2;
     --error-text: #B91C1C;
+    --free-day-bgr: #DBEAFE;
+    --free-day-hov: #c3dcfc;
 }
 
 * {
@@ -112,6 +114,14 @@
 .day .today {
     background: var(--primary-light);
     background-color: var(--primary-dark);
+}
+
+.free-day {
+    background-color: var(--free-day-bgr);
+}
+
+.free-day:hover {
+    background-color: var(--free-day-hov);
 }
 
 @media (max-width: 1024px) {
