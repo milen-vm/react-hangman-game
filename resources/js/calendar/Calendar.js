@@ -87,7 +87,7 @@ class Calendar {
                 weekDay = 0;
             }
 
-            const eventsToday = this.#events.filter(e => e.start_date === dateStr);    // TODO: define events variable
+            const eventsToday = this.#events.filter(e => e.start_date === dateStr);
             const eventBox = document.createElement('div');
             eventBox.className = 'events';
 
@@ -122,7 +122,7 @@ class Calendar {
             addBtn.textContent = '+ Add';
             addBtn.onclick = e => {
                 e.stopPropagation();
-                // TODO: oppenModalForAdd(dateStr);
+                this.#openModalForAdd(dateStr);
             };
 
             overlay.appendChild(addBtn);
@@ -133,7 +133,7 @@ class Calendar {
                 editBtn.textContent = 'Edit';
                 editBtn.onclick = e => {
                     e.stopPropagation;
-                    // TODO: oppenModalForAdd(eventsToday);
+                    this.#openModalForEdit(eventsToday);
                 };
 
                 overlay.appendChild(editBtn);
@@ -143,6 +143,27 @@ class Calendar {
             cell.appendChild(eventBox);
             this.#calendar.appendChild(cell);
         }
+    }
+
+    #openModalForAdd(dateStr) {
+        let form = document.getElementById('eventForm').action = '/calendar/appointment';
+        this.cl(form);
+        // form.querySelectorAll('#description').value = '';
+        // form.querySelectorAll('#title').value = '';
+        // TODO: set date and time fields
+
+        const selector = document.getElementsByName('eventSelector');
+        const wrapper = document.getElementById('eventSelectorWrapper');
+        if(selector && wrapper) {
+            selector.innerHTML = '';
+            wrapper.style.display = 'none';
+        }
+
+        this.#modal.style.display = 'flex';
+    }
+
+    #openModalForEdit(eventsToday) {
+
     }
 }
 

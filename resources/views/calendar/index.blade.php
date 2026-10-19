@@ -37,7 +37,7 @@
             <form action="" method="POST" id="eventForm">
                 @csrf
 
-                <input type="hidden" name="eventId" id="eventId">
+                {{-- <input type="hidden" name="eventId" id="eventId"> --}}
 
                 <label for="title">Title:</label>
                 <input type="text" name="title" id="title" required>
