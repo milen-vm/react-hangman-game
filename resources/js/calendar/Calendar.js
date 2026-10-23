@@ -5,12 +5,13 @@ class Calendar {
     #monthYear;
     #events;
     #modal;
+    #eventForm;
+    #selector;
+    #wrapper;
 
     constructor() {
         this.#setElements();
-        // this.#renderCalendar();
         this.#getEvents();
-
     }
 
     cl = (item) => console.log(item);
@@ -31,6 +32,9 @@ class Calendar {
         this.#calendar = document.getElementById('calendar');
         this.#monthYear = document.getElementById('monthYear');
         this.#modal = document.getElementById('eventModal');
+        this.#eventForm = document.getElementById('eventForm');
+        this.#selector = document.getElementsByName('eventSelector');
+        this.#wrapper = document.getElementById('eventSelectorWrapper');
     }
 
     #renderCalendar(date = this.#currentDate) {
@@ -146,24 +150,49 @@ class Calendar {
     }
 
     #openModalForAdd(dateStr) {
-        let form = document.getElementById('eventForm').action = '/calendar/appointment';
-        this.cl(form);
+        this.#eventForm.action = '/calendar/appointment';
         // form.querySelectorAll('#description').value = '';
         // form.querySelectorAll('#title').value = '';
         // TODO: set date and time fields
+        this.#hideEventSelector();
 
-        const selector = document.getElementsByName('eventSelector');
-        const wrapper = document.getElementById('eventSelectorWrapper');
-        if(selector && wrapper) {
-            selector.innerHTML = '';
-            wrapper.style.display = 'none';
+        this.#showModal();
+    }
+
+    #openModalForEdit(eventsOnDate) {
+        const methodInput = this.dcr('input');
+        methodField.name = '_method';
+        methodField.value = 'PUT';
+        methodField.type = 'hidden';
+        methodField.id = 'methodField';
+
+        this.#eventForm.action = '/calendar/appointment/' + eventsOnDate.id;
+        this.#eventForm.appendChild(methodInput);   // TODO: remove method field on modal close
+
+        this.#showEventSelector();
+    }
+
+    #hideEventSelector() {
+        if(this.#selector && this.#wrapper) {
+            this.#selector.innerHTML = '';
+            this.#wrapper.style.display = 'none';
         }
+    }
 
+    #showEventSelector() {
+        if(this.#selector && this.#wrapper) {
+            this.#selector.innerHTML = '<option disabled selected>Изберете събитие...</option>';
+            this.#wrapper.style.display = 'block';
+        }
+    }
+
+    #showModal() {
         this.#modal.style.display = 'flex';
     }
 
-    #openModalForEdit(eventsToday) {
-
+    #hideModal() {
+        this.#modal.style.display = 'none';
+        // TODO: remove method input feild
     }
 }
 
