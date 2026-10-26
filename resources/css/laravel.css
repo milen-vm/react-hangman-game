@@ -111,9 +111,9 @@
     background: #F3F4F6;
 }
 
-.day .today {
-    background: var(--primary-light);
-    background-color: var(--primary-dark);
+.today {
+    border-color: red;
+    border-width: 3px;
 }
 
 .free-day {
