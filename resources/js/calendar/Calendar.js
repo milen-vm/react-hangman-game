@@ -11,13 +11,16 @@ class Calendar {
 
     constructor() {
         this.#setElements();
-        this.#getEvents();
+        this.#getAppointments();
+        this.#updateClock();
+        setInterval(this.#updateClock, 1000);
+        this.#setEvents();
     }
 
     cl = (item) => console.log(item);
     dcr = (el) => document.createElement(el);
 
-    #getEvents() {
+    #getAppointments() {
         fetch('/calendar/json', {method: 'GET', headers: {}})
             .then(response => response.json())
             .then(body => {
@@ -37,15 +40,21 @@ class Calendar {
         this.#wrapper = document.getElementById('eventSelectorWrapper');
     }
 
+    #setEvents() {
+        document.getElementById('prevMonth').addEventListener('click', (e) => this.#changeMonth(-1));
+        document.getElementById('nextMonth').addEventListener('click', (e) => this.#changeMonth(1));
+    }
+
     #renderCalendar(date = this.#currentDate) {
         this.#calendar.innerHTML = '';
 
         const year = date.getFullYear();
         const month = date.getMonth();
-        const today = new Date(date.valueOf());
+        const today = new Date();
 
         const totalDays = new Date(year, month + 1, 0).getDate();
-        const firstDayOfMonth = new Date(year, month, 1).getDay() - 1;
+        let firstDayOfMonth = new Date(year, month, 1).getDay() - 1;
+        firstDayOfMonth = firstDayOfMonth < 0 ? 6 : firstDayOfMonth;
 
         this.#monthYear.textContent = date.toLocaleDateString('bg-BG', {
             month: 'long',
@@ -149,6 +158,30 @@ class Calendar {
         }
     }
 
+    /**
+     * Month navigation
+     * 
+     * @param {Integer} offset
+     */
+    #changeMonth(offset) {
+        this.#currentDate.setMonth(this.#currentDate.getMonth() + offset);
+        this.#renderCalendar();
+    }
+
+    /**
+     * Live digital clock
+     */
+    #updateClock() {
+        const now = new Date();
+        const clock = document.getElementById('clock');
+
+        clock.textContent = [
+            now.getHours().toString().padStart(2, '0'),
+            now.getMinutes().toString().padStart(2, '0'),
+            now.getSeconds().toString().padStart(2, '0')
+        ].join(':');
+    }
+
     #openModalForAdd(dateStr) {
         this.#eventForm.action = '/calendar/appointment';
         // form.querySelectorAll('#description').value = '';
@@ -169,7 +202,13 @@ class Calendar {
         this.#eventForm.action = '/calendar/appointment/' + eventsOnDate.id;
         this.#eventForm.appendChild(methodInput);   // TODO: remove method field on modal close
 
-        this.#showEventSelector();
+        // this.#showEventSelector(eventsOnDate);
+        // this.#handleEventSelection(JSON.stringify(eventsOnDate[0]));
+        // TODO: ...
+    }
+
+    #handleEventSelection(eventJSON) {
+        // TODO: get data from the server
     }
 
     #hideEventSelector() {
@@ -179,10 +218,25 @@ class Calendar {
         }
     }
 
-    #showEventSelector() {
-        if(this.#selector && this.#wrapper) {
-            this.#selector.innerHTML = '<option disabled selected>Изберете събитие...</option>';
+    #showEventSelector(eventsOnDate) {
+        if(!this.#selector || !this.#wrapper) {
+
+            return;
+        }
+
+        this.#selector.innerHTML = '<option disabled selected>Изберете събитие...</option>';
+
+        eventsOnDate.forEach(e => {
+            const option = this.dcr('option');
+            option.value = JSON.stringify(e);
+            option.textContent = `${e.title} (${e.start_time} - ${e.end_time})`;
+            this.#selector.appendChild(option);
+        });
+
+        if(eventsOnDate.length > 1) {
             this.#wrapper.style.display = 'block';
+        } else {
+            this.#wrapper.style.display = 'none';
         }
     }
 

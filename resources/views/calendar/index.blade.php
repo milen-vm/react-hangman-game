@@ -14,9 +14,9 @@
     <!-- Calendar -->
     <div class="calendar">
         <div class="nav-btn-container">
-            <button class="nav-btn">&laquo;</button>
+            <button class="nav-btn" id="prevMonth">&laquo;</button>
             <h2 id="monthYear"></h2>
-            <button class="nav-btn">&raquo;</button>
+            <button class="nav-btn" id="nextMonth">&raquo;</button>
         </div>
         <div class="calendar-grid" id="calendar"></div>
     </div>
