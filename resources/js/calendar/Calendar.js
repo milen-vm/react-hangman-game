@@ -100,7 +100,16 @@ class Calendar {
                 weekDay = 0;
             }
 
-            const eventsToday = this.#events.filter(e => e.start_date === dateStr);
+            const eventsToday = this.#events.filter((e) => {
+                const startDate = new Date(e.start_date);
+                const endDate = new Date(e.end_date);
+                const currDate = new Date(dateStr);
+
+                return e.start_date === dateStr || 
+                e.end_date === dateStr ||
+                (startDate < currDate && currDate < endDate);
+            });
+
             const eventBox = document.createElement('div');
             eventBox.className = 'events';
 
@@ -112,16 +121,16 @@ class Calendar {
                 title.className = 'course';
                 title.textContent = item.title;
 
-                const discription = this.dcr('div');
-                discription.className = 'instructor';
-                discription.textContent = item.discription;
+                // const discription = this.dcr('div');
+                // discription.className = 'instructor';
+                // discription.textContent = item.discription;
 
                 const time = this.dcr('div');
                 time.className = 'time';
                 time.textContent = item.start_time + ' - ' + item.end_time;
 
                 ev.appendChild(title);
-                ev.appendChild(discription);
+                // ev.appendChild(discription);
                 ev.appendChild(time);
                 eventBox.appendChild(ev);
             })
