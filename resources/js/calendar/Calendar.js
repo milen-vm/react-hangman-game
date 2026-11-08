@@ -43,6 +43,12 @@ class Calendar {
     #setEvents() {
         document.getElementById('prevMonth').addEventListener('click', (e) => this.#changeMonth(-1));
         document.getElementById('nextMonth').addEventListener('click', (e) => this.#changeMonth(1));
+        this.#modal.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (e.target.id === 'cancel' || e.target.id === 'eventModal') {
+                this.#hideModal();
+            }
+        });
     }
 
     #renderCalendar(date = this.#currentDate) {

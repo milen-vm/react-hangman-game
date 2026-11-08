@@ -51,20 +51,20 @@
                 <label for="endDate">End Date:</label>
                 <input type="date" name="endDate" id="endDate" required>
 
-                <button type="submit">Save</button>
+                <button type="submit" class="btn btn-success">Save</button>
             </form>
 
             <!-- Delete Form -->
-            <form action="" method="POST" onsubmit="return confirm('Are you sure?')">
+            {{-- <form action="" method="POST" onsubmit="return confirm('Are you sure?')">
                 @csrf
                 @method('DELETE')
 
                 <input type="hidden" name="eventId" id="eventId">
                 <button type="submit" class="submit-btn">Delete</button>
-            </form>
+            </form> --}}
 
             <!-- Cancel -->
-            <button type="button">Cancel</button>
+            <button id="cancel" type="button" class="btn btn-primary">Cancel</button>
         </div>
     </div>
 </div>
