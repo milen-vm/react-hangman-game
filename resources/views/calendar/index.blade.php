@@ -67,5 +67,9 @@
             <button id="cancel" type="button" class="btn btn-primary">Cancel</button>
         </div>
     </div>
+    <footer style="background-color: lightslategray; text-align: center; margin-top: 1rem; padding: 1.5rem;">
+        <h4>Моят календар</h4>
+    </footer>
 </div>
+
 @endsection
