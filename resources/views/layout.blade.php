@@ -13,6 +13,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
         <link href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -52,7 +53,11 @@
                 top: 95%;
             }
         </style>
-        @vite(['resources/js/gallery.js', 'resources/css/laravel.css'])
+        @vite([
+            'resources/js/gallery.js',
+            'resources/css/laravel.css',
+            'resources/css/datetime-picker/bootstrap-datetimepicker.min.css',
+        ])
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
