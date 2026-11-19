@@ -70,16 +70,21 @@
     <footer style="background-color: lightslategray; text-align: center; margin-top: 1rem; padding: 1.5rem;">
         <h4>Моят календар</h4>
         <input type="text" value="2021-04-16 14:45" id="myPicker" class="default" />
-        @vite([
-            'resources/js/datetime-picker/bootstrap-datetimepicker.min.js',
-            'resources/js/datetime-picker/bootstrap-datetimepicker.bg.js'
-        ])
-<script>
-    $(function(){
-  $(".default").datetimepicker();
-});
-</script>
+
+        <script>
+            $(function(){
+                $(".default").datetimepicker();
+            });
+        </script>
     </footer>
 </div>
 
 @endsection
+
+@push('head')
+    @vite([
+        'resources/js/datetime-picker/bootstrap-datetimepicker.min.js',
+        'resources/js/datetime-picker/bootstrap-datetimepicker.bg.js',
+        'resources/css/datetime-picker/bootstrap-datetimepicker.min.css'
+    ])
+@endpush
