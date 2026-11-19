@@ -78,13 +78,12 @@
         </script>
     </footer>
 </div>
-
 @endsection
 
 @push('head')
     @vite([
+        'resources/css/datetime-picker/bootstrap-datetimepicker.min.css',
         'resources/js/datetime-picker/bootstrap-datetimepicker.min.js',
-        'resources/js/datetime-picker/bootstrap-datetimepicker.bg.js',
-        'resources/css/datetime-picker/bootstrap-datetimepicker.min.css'
+        'resources/js/datetime-picker/bootstrap-datetimepicker.bg.js'
     ])
 @endpush
